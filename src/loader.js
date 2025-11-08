@@ -3,10 +3,10 @@ import kaboom from "../lib/kaboom.mjs"
 export const scale=2;
 export const k=kaboom({
     canvas:document.querySelector("#mycanvas"),
-    width:480*scale,
-    height:320*scale,
+    width:320*scale,
+    height:160*scale,
     scale,
-    letterbox:true,//to maintain the aspect ratio of the canvas
+    //letterbox:true,//to maintain the aspect ratio of the canvas
     global:false,
 });
 
@@ -61,16 +61,6 @@ k.loadSprite("player-death","../assets/sprites/hero/Death.png",{
     }
 });
 
-const player=k.add([
-    k.sprite("player-idle"),
-    k.pos(40, 40),
-    k.area(),
-])
-player.play("idle")
-const music = k.play("../assests/sounds/Ballad of Ashenwood.mp3", {
-    volume: 0.5,
-    loop: true
-})
 
 let isAttacking = false
 
@@ -95,3 +85,4 @@ k.onKeyPress("space", () => {
                 isAttacking = false
         })
 })
+k.loadSprite("level1","../maps/level1.png")
