@@ -29,35 +29,35 @@ k.loadSprite("player-fall","../assets/sprites/hero/Fall.png",{
     sliceX:2,
     sliceY:1,
     anims:{
-        attack:{from:0,to:1,loop:true},
+        fall:{from:0,to:1,loop:true},
     }
 });
 k.loadSprite("player-jump","../assets/sprites/hero/Jump.png",{
     sliceX:2,
     sliceY:1,
     anims:{
-        attack:{from:0,to:1,loop:true},
+        jump:{from:0,to:1,},
     }
 });
 k.loadSprite("player-run","../assets/sprites/hero/Run.png",{
     sliceX:8,
     sliceY:1,
     anims:{
-        attack:{from:0,to:7,loop:true},
+        run:{from:0,to:7,loop:true},
     }
 });
 k.loadSprite("player-hit","../assets/sprites/hero/Hit.png",{
     sliceX:4,
     sliceY:1,
     anims:{
-        attack:{from:0,to:3},
+        hit:{from:0,to:3},
     }
 });
 k.loadSprite("player-death","../assets/sprites/hero/Death.png",{
     sliceX:6,
     sliceY:1,
     anims:{
-        attack:{from:0,to:5},
+        death:{from:0,to:5},
     }
 });
 
