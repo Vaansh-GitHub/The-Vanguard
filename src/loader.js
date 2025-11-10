@@ -61,28 +61,4 @@ k.loadSprite("player-death","../assets/sprites/hero/Death.png",{
     }
 });
 
-
-let isAttacking = false
-
-// attack on spacebar
-k.onKeyPress("space", () => {
-        if (isAttacking) return
-        isAttacking = true
-        
-        // Save current position
-        const currentPos = player.pos.clone()
-        
-        // Switch to attack sprite
-        player.use(k.sprite("player-attack"))
-        player.pos = currentPos
-        player.play("attack")
-        
-        // After attack animation, go back to idle
-        k.wait(0.4, () => {
-                player.use(k.sprite("player-idle"))
-                player.pos = currentPos
-                player.play("idle")
-                isAttacking = false
-        })
-})
 k.loadSprite("level1","../maps/level1.png")

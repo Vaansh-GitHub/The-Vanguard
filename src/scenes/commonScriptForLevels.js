@@ -34,3 +34,51 @@ export function setColliders(k, map, colliders) {
         }
     }
 }
+
+export function setCameraContols(k,player,map,level1Data){
+    
+}
+export function setCameraZones(k,map,cameras)
+{
+    for(let camera of cameras)
+    {
+        const cameraZone= map.add([
+            k.pos(camera.x,camera.y),
+            k.area({
+                shape: new k.Rect(k.vec2(0,0),camera.width,camera.height),
+                collisionIgnore:["cameraZone","collider",],
+            }),
+            k.body({ isStatic: true }),
+            "cameraZone",
+        ])
+        
+        if(camera.properties[0].name==="camPosX")
+        {
+            cameraZone.onCollide("player",()=>{
+                if(k.camPos().x!==camera.properties[0].value)
+                {
+                    k.tween(k.camPos().x,
+                           camera.properties[0].value,
+                           0.8,
+                           (value)=>{k.camPos(value,k.camPos().y)},
+                           k.easings.linear
+                    )
+                }
+            })
+        }
+        if(camera.properties[0].name==="camPosY")
+        {
+            cameraZone.onCollide("player",()=>{
+                if(k.camPos().y!==camera.properties[0].value)
+                {
+                    k.tween(k.camPos().y,
+                           camera.properties[0].value,
+                           0.8,
+                           (value)=>{k.camPos(k.camPos().x,value)},
+                           k.easings.linear
+                    )
+                }
+            })
+        }
+    }
+}

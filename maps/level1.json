@@ -106,27 +106,27 @@
                          "y":0
                         }, 
                         {
-                         "x":60.1481175751223,
-                         "y":-34.5275821596245
+                         "x":60.1481,
+                         "y":-34.5276
                         }, 
                         {
-                         "x":99.0674877707897,
-                         "y":-35.0208333333334
+                         "x":99.0675,
+                         "y":-35.0208
                         }, 
                         {
-                         "x":160.731944444444,
+                         "x":160.732,
                          "y":0
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":352.5625,
-                 "y":402.520833333333
+                 "x":352.563,
+                 "y":402.521
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -141,15 +141,15 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"camPos",
+                         "name":"camPosX",
                          "type":"int",
                          "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":30,
-                 "x":512,
+                 "width":21.3333333333334,
+                 "x":520.666666666667,
                  "y":2
                 }, 
                 {
@@ -187,15 +187,21 @@
                  "y":127.333
                 }, 
                 {
-                 "height":0,
-                 "id":111,
+                 "height":396,
+                 "id":117,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"camPosX",
+                         "type":"int",
+                         "value":320
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":561.333,
-                 "y":-336
+                 "width":32.6666666666666,
+                 "x":331.333333333333,
+                 "y":0.666666666666666
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -270,7 +276,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -322,7 +328,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":117,
+ "nextobjectid":118,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

@@ -1,5 +1,5 @@
 import { makePlayer} from "../playerLogic.js";
-import {setColliders} from "./commonScriptForLevels.js"
+import {setColliders,setCameraZones,setCameraContols} from "./commonScriptForLevels.js"
 export function level1(k,level1Data){
     // make() method creates a game obj but does not adds a scene while add method can create as well as add the obj to the scene
     // I can also add a make() method here maybe (Think after developing game)
@@ -16,6 +16,7 @@ export function level1(k,level1Data){
     const map=k.add([k.pos(0,-150),k.sprite("level1")])
     const colliders=[]
     const positions=[]
+    const cameras=[]
     for(let layer of levellayers)
     {
         if(layer.name==="positions")
@@ -27,13 +28,28 @@ export function level1(k,level1Data){
             colliders.push([...layer.objects])
             continue;
         }
+        if(layer.name==="cameras")
+        {
+            cameras.push(...layer.objects)
+        }
     }
     // const colliders=layers[4].objects also works but i am ommiting it for now
+    //Setting the colliders
     setColliders(k,map,colliders)
     
-    const player = map.add(makePlayer(k));
+    //Setting camera Zones
+    setCameraZones(k,map,cameras)
     
+
+    //Adding the player logic 
+    const player = map.add(makePlayer(k));
+
+    //Setting camera controls
+    setCameraContols(k,player,map,level1Data)
+    
+    //Setting players properties
     player.setPosition(positions.find(p=>p.name==="player").x,positions.find(p=>p.name==="player").y)
     player.setControls();
-    console.log('Player loaded')
+    player.setEvents();
+    player.setPassThrough();
 }

@@ -1,9 +1,7 @@
 import { initializePlayerStateManager } from "./playerStateManager.js"
 export function makePlayer(k) {
     const state = initializePlayerStateManager(k);
-    console.log(state.getState());
-
-
+    
     return k.make([
         k.pos(),
         k.sprite("player-idle"),
@@ -23,7 +21,6 @@ export function makePlayer(k) {
             },
             setControls: function () {
                 this.controlHandlers = []
-                console.log(state.getState());
 
                 this.controlHandlers.push(
                     k.onKeyPress((key) => {
@@ -33,12 +30,7 @@ export function makePlayer(k) {
                                 this.play("jump");
                             }
                             this.doubleJump();
-                            k.wait(0.7, () =>{
-                                this.use(k.sprite("player-idle"))
-                                this.play("idle");
-                                console.log('Player idle after attack');
-                                
-                            });
+                            return;
                         }
                         if (key === "space" && this.isGrounded() && !this.isAttacking) {
                             this.isAttacking = true;
@@ -85,14 +77,62 @@ export function makePlayer(k) {
                         if (
                             this.curAnim() !== "attack" &&
                             this.curAnim() !== "jump" &&
-                            this.curAnim() !== "fall") {
+                            this.curAnim() !== "fall" &&
+                            this.isGrounded()) {
 
                             this.use(k.sprite("player-idle"))
                             this.play("idle");
                         }
                     })
                 )
-            }
+            },
+            setEvents: function () {
+                this.onFall(() => {
+                    this.use(k.sprite("player-fall"))
+                    this.play("fall");
+                })
+                this.onFallOff(()=>{
+                    this.use(k.sprite("player-fall"))
+                    this.play("fall");
+                })
+                this.onGround(()=>{
+                    this.use(k.sprite("player-idle"))
+                    this.play("idle");
+                })
+                this.onHeadbutt(() => {
+                    this.use(k.sprite("player-fall"))
+                    this.play("fall");
+                })
+            },
+            setPassThrough: function() {
+                this.onBeforePhysicsResolve((collision) => {
+                    console.log('Hello');
+                    
+                    if(collision.target.is("passthrough") && this.isJumping()) {
+                        collision.preventResolution(); //for preventing collision resolution so that player can pass through
+                    }
+                });
+                //What is the problem happening with onBeforePhysicsResolve why isn't it working and giving me this error Cannot read properties of undefined (reading 'onBeforePhysicsResolve')
+
+               // Let me check your playerLogic.js to see how you're using it: 
+
+               // I see the issue. In your `setPassThrough` function, you're using an arrow function which changes the scope of `this`. That's why `this` is undefined when trying to access `onBeforePhysicsResolve`. Let's fix that by changing it to a regular function: 
+
+               // The issue was that you were using an arrow function (`=>`) for the `setPassThrough` method. Arrow functions don't bind their own `this` value, so `this` was undefined when trying to access `onBeforePhysicsResolve`.
+
+               // By changing it to a regular function using the `function()` syntax, `this` will correctly refer to the player object, giving you access to the `onBeforePhysicsResolve` method.
+
+               // Also, let's check where you're calling `setPassThrough`. Make sure you're calling it after the player object is fully created. You should call it in level1.js like this: 
+
+               // I see you're already calling `setPassThrough()` at the end of level1.js, which is good. The error should be fixed now by changing the arrow function to a regular function.
+
+               // To summarize:
+               // 1. The error was caused by using an arrow function for `setPassThrough` which lost the correct `this` context
+               // 2. Changed it to a regular function to maintain proper `this` binding
+               // 3. The method should now work correctly with the player object
+
+               // Try running the game again - the passthrough collision detection should work properly now.
+            },
         }
     ])
 }
