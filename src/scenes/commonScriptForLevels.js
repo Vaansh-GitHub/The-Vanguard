@@ -1,5 +1,4 @@
 export function setColliders(k, map, colliders) {
-    colliders = colliders[0]; // Extract the array of collider objects
     for (const collider of colliders) {
         if (collider.polygon) {
             //Code to store coordinates of polygon as 2d vectors
@@ -34,10 +33,6 @@ export function setColliders(k, map, colliders) {
         }
     }
 }
-
-export function setCameraContols(k,player,map,level1Data){
-    
-}
 export function setCameraZones(k,map,cameras)
 {
     for(let camera of cameras)
@@ -59,7 +54,7 @@ export function setCameraZones(k,map,cameras)
                 {
                     k.tween(k.camPos().x,
                            camera.properties[0].value,
-                           0.8,
+                           0.7,
                            (value)=>{k.camPos(value,k.camPos().y)},
                            k.easings.linear
                     )
@@ -73,12 +68,43 @@ export function setCameraZones(k,map,cameras)
                 {
                     k.tween(k.camPos().y,
                            camera.properties[0].value,
-                           0.8,
+                           0.5,
                            (value)=>{k.camPos(k.camPos().x,value)},
                            k.easings.linear
                     )
                 }
             })
+        }
+    }
+}
+export function setEntryAndExitPoints(k,map,player,exits)
+{
+    console.log(exits);
+    for(let exit of exits)
+    {
+        if(exit.type==="start")
+        {
+            map.add([
+                k.pos(exit.x,exit.y),
+                k.area({
+                    shape : new k.Rect(k.vec2(0,0),exit.width,exit.height),
+                    collisionIgnore:["collider"] 
+                }),
+                k.body({isStatic:true}),
+                "start"
+            ])
+        }
+        if(exit.type==="exit-1")
+        {
+            map.add([
+                k.pos(exit.x,exit.y),
+                k.area({
+                    shape : new k.Rect(k.vec2(0,0),exit.width,exit.height),
+                    collisionIgnore:["collider"] 
+                }),
+                k.body({isStatic:true}),
+                "exit-1"
+            ])
         }
     }
 }

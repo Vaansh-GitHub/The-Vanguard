@@ -6,7 +6,7 @@ export function makePlayer(k) {
         k.pos(),
         k.sprite("player-idle"),
         k.area({
-            shape: new k.Rect(k.vec2(0, 18), 30, 28),
+            shape: new k.Rect(k.vec2(0, 12), 30, 28),
         }),
         k.body({ mass: 50, jumpForce: 450 }),
         k.anchor("center"),//tells from where all the game obj are centered
@@ -14,7 +14,7 @@ export function makePlayer(k) {
         k.doubleJump(1),
         k.health(state.getState().playerHP),
         {
-            speed: 150,
+            speed: 200,
             setPosition: function (x, y) {
                 this.pos.x = x;
                 this.pos.y = y;
@@ -106,9 +106,10 @@ export function makePlayer(k) {
             },
             setPassThrough: function() {
                 this.onBeforePhysicsResolve((collision) => {
-                    console.log('Hello');
-                    
                     if(collision.target.is("passthrough") && this.isJumping()) {
+                        collision.preventResolution(); //for preventing collision resolution so that player can pass through
+                    }
+                    if(collision.target.is("cameraZone")) {
                         collision.preventResolution(); //for preventing collision resolution so that player can pass through
                     }
                 });
