@@ -17,7 +17,6 @@ k.loadSprite("player-idle","../assets/sprites/hero/Idle.png",{
         idle:{from:0,to:7,loop:true},
     }
 });
-
 k.loadSprite("player-attack","../assets/sprites/hero/Attack1.png",{
     sliceX:6,
     sliceY:1,
@@ -61,4 +60,80 @@ k.loadSprite("player-death","../assets/sprites/hero/Death.png",{
     }
 });
 
+k.loadSprite("skeleton-idle","../assets/sprites/skeleton/Idle.png",{
+    sliceX:4,
+    sliceY:1,
+    anims:{
+        idle:{from:0,to:3,loop:true},
+    }
+});
+k.loadSprite("skeleton-attack","../assets/sprites/skeleton/Attack.png",{
+    sliceX:8,
+    sliceY:1,
+    anims:{
+        attack:{from:0,to:7,speed:15},
+    }
+});
+k.loadSprite("skeleton-walk","../assets/sprites/skeleton/Walk.png",{
+    sliceX:4,
+    sliceY:1,
+    anims:{
+        walk:{from:0,to:3,loop:true},
+    }
+});
+k.loadSprite("skeleton-death","../assets/sprites/skeleton/Death.png",{
+    sliceX:4,
+    sliceY:1,
+    anims:{
+        death:{from:0,to:3},
+    }
+});
+k.loadSprite("skeleton-hit","../assets/sprites/skeleton/Take Hit.png",{
+    sliceX:4,
+    sliceY:1,
+    anims:{
+        hit:{from:0,to:3},
+    }
+});
+
+
+k.loadSprite("villain-idle","../assets/sprites/villain/idle.png",{
+    sliceX:5,
+    sliceY:1,
+    anims:{
+        idle:{from:0,to:3,loop:true},
+    }
+});
+k.loadSprite("villain-attack","../assets/sprites/villain/attacking.png",{
+    sliceX:6,
+    sliceY:3,
+    anims:{
+        attack:{from:0,to:12},
+    }
+});
+k.loadSprite("villain-death","../assets/sprites/villain/death.png",{
+    sliceX:10,
+    sliceY:2,
+    anims:{
+        death:{from:0,to:19},
+    }
+});
+k.loadSprite("villain-appear","../assets/sprites/villain/summonAppear.png",{
+    sliceX:3,
+    sliceY:2,
+    anims:{
+        appear:{from:0,to:5,speed:2},
+    }
+});
+k.loadSprite("villain-disappear","../assets/sprites/villain/summonDeath.png",{
+    sliceX:3,
+    sliceY:2,
+    anims:{
+        disappear:{from:0,to:5},
+    }
+});
+
+
 k.loadSprite("level1","../maps/level1.png")
+k.loadSprite("level2","../maps/level2.png")
+k.loadSound("backgroundSound","../assets/sounds/Ballad of Ashenwood.mp3")

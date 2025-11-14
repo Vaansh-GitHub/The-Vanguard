@@ -77,9 +77,8 @@ export function setCameraZones(k,map,cameras)
         }
     }
 }
-export function setEntryAndExitPoints(k,map,player,exits)
+export function setEntryAndExitPoints(k,map,exits)
 {
-    console.log(exits);
     for(let exit of exits)
     {
         if(exit.type==="start")
@@ -94,7 +93,7 @@ export function setEntryAndExitPoints(k,map,player,exits)
                 "start"
             ])
         }
-        if(exit.type==="exit-1")
+        if(exit.type==="exit")
         {
             map.add([
                 k.pos(exit.x,exit.y),
@@ -103,7 +102,7 @@ export function setEntryAndExitPoints(k,map,player,exits)
                     collisionIgnore:["collider"] 
                 }),
                 k.body({isStatic:true}),
-                "exit-1"
+                "exit"
             ])
         }
     }
