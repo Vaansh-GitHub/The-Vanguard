@@ -43,7 +43,7 @@ export function level1(k, level1Data) {
 
     //Adding the player logic 
     const player = map.add(makePlayer(k));
-
+    k.playerData=player;
     
     for (let position of positions) {
         if (position.name === "player") {
@@ -63,7 +63,7 @@ export function level1(k, level1Data) {
     }
 
     //Setting the Exit and Entry Point Colliders
-    setEntryAndExitPoints(k, map, player, exits)
+    setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
     k.bgMusic = k.play("backgroundSound", { loop: true });

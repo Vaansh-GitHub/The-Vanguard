@@ -13,6 +13,11 @@ export function makePlayer(k) {
         {
             speed: 200,
             kills: 0,
+            usePreserveSprite: function(name) {
+                   const prevFlip = this.flipX;
+                   this.use(k.sprite(name));
+                   this.flipX = prevFlip;
+            },
             setPosition: function (x, y) {
                 this.pos.x = x;
                 this.pos.y = y;
@@ -24,7 +29,7 @@ export function makePlayer(k) {
                     k.onKeyPress((key) => {
                         if (key === "w" && !this.isAttacking && this.isGrounded()) {
                             if (this.curAnim() !== "jump") {
-                                this.use(k.sprite("player-jump"))
+                                    this.usePreserveSprite("player-jump")
                                 this.play("jump");
                             }
                             this.doubleJump();
@@ -32,17 +37,17 @@ export function makePlayer(k) {
                         }
                         if (key === "space" && this.isGrounded() && !this.isAttacking) {
                             this.isAttacking = true;
-                            this.use(k.sprite("player-attack"))
+                                this.usePreserveSprite("player-attack") 
                             const attackHitBox = this.add([
-                                k.pos(this.flipX ? -25 : 0, 2),
-                                k.area({ shape: new k.Rect(k.vec2(0, -30), 90, 45) }),
+                                k.pos(0, 2),
+                                k.area({ shape: new k.Rect(k.vec2(this.flipX?-25:0, -30), 90, 45) }),
                                 "attack-hitbox",
                             ])
                             this.play("attack");
                             k.wait(0.4, () => {
                                 attackHitBox.destroy();
                                 this.isAttacking = false;
-                                this.use(k.sprite("player-idle"))
+                                    this.usePreserveSprite("player-idle")
                                 this.play("idle");
                             });
                         }
@@ -51,7 +56,7 @@ export function makePlayer(k) {
                     k.onKeyDown((key) => {
                         if (key === "a" && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
-                                this.use(k.sprite("player-run"))
+                                  this.usePreserveSprite("player-run")
                                 this.play("run");
                             }
                             this.flipX = true;
@@ -61,7 +66,7 @@ export function makePlayer(k) {
                         }
                         if (key === "d" && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
-                                this.use(k.sprite("player-run"))
+                                  this.usePreserveSprite("player-run")
                                 this.play("run");
                             }
                             this.flipX = false;
@@ -79,7 +84,7 @@ export function makePlayer(k) {
                             this.isGrounded()) {
 
                             //this.flipX = this.lastFlipX;
-                            this.use(k.sprite("player-idle"))
+                                this.usePreserveSprite("player-idle")
                             this.play("idle");
                         }
                     })
@@ -87,6 +92,17 @@ export function makePlayer(k) {
             },
             setEvents: function () {
                 this.onCollide("skeleton-hitbox", () => {
+                    this.hurt(1);
+                        this.usePreserveSprite("player-hit")
+                    this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() === 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
+                })
+                this.onCollide("boss-hitbox", () => {
                     this.hurt(1);
                     this.use(k.sprite("player-hit"))
                     this.play("hit")
@@ -97,26 +113,37 @@ export function makePlayer(k) {
                         }
                     })
                 })
+                this.onCollide("boss",async ()=>{
+                    this.hurt(1);
+                    this.use(k.sprite("player-hit"))
+                    await this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() === 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
+                })
                 this.onFall(() => {
-                    this.use(k.sprite("player-fall"))
+                    this.usePreserveSprite("player-fall")
                     this.play("fall");
                 })
                 this.onFallOff(() => {
-                    this.use(k.sprite("player-fall"))
+                    this.usePreserveSprite("player-fall")
                     this.play("fall");
                 })
                 this.onGround(() => {
-                    this.use(k.sprite("player-idle"))
+                    this.usePreserveSprite("player-idle")
                     this.play("idle");
                 })
                 this.onHeadbutt(() => {
-                    this.use(k.sprite("player-fall"))
+                    this.usePreserveSprite("player-fall")
                     this.play("fall");
                 })
-                this.on("die", () => {
-                    this.collisionIgnore = ["skeleton"];
+                this.on("die", async () => {
+                    this.collisionIgnore = ["skeleton","boss"];
                     this.use(k.sprite("player-death"));
-                    this.play("death");
+                    await this.play("death");
                     k.wait(1.5, () => {
                         this.respawn("level1")
                     })
@@ -142,6 +169,10 @@ export function makePlayer(k) {
                     }
                     if (collision.target.is("skeleton")) {
                         collision.preventResolution(); //for preventing collision resolution so that player can pass through
+                    }
+                    if(collision.target.is("boss"))
+                    {
+                        collision.preventResolution();
                     }
                 });
                 //What is the problem happening with onBeforePhysicsResolve why isn't it working and giving me this error Cannot read properties of undefined (reading 'onBeforePhysicsResolve')
@@ -182,6 +213,9 @@ export function makePlayer(k) {
                 }
 
                 k.go(destinationName, previousSceneData);
+            },
+            disableControls:function(){
+
             },
         }
     ])

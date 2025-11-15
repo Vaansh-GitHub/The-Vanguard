@@ -16,7 +16,7 @@ async function main()
 main()
 k.scene("intro",()=>{ // Scene Method to define scene in kaboom js
     k.onKeyPress("enter",()=>{
-         k.go("level2") //To start the default scene
+         k.go("level1") //To start the default scene
     })
 })
 

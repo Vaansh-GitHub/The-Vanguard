@@ -108,7 +108,7 @@ k.loadSprite("villain-attack","../assets/sprites/villain/attacking.png",{
     sliceX:6,
     sliceY:3,
     anims:{
-        attack:{from:0,to:12},
+        attack:{from:0,to:12,speed:20},
     }
 });
 k.loadSprite("villain-death","../assets/sprites/villain/death.png",{
@@ -122,14 +122,14 @@ k.loadSprite("villain-appear","../assets/sprites/villain/summonAppear.png",{
     sliceX:3,
     sliceY:2,
     anims:{
-        appear:{from:0,to:5,speed:2},
+        appear:{from:0,to:5,speed:12},
     }
 });
 k.loadSprite("villain-disappear","../assets/sprites/villain/summonDeath.png",{
     sliceX:3,
     sliceY:2,
     anims:{
-        disappear:{from:0,to:5},
+        disappear:{from:0,to:5,speed:12},
     }
 });
 
@@ -137,3 +137,4 @@ k.loadSprite("villain-disappear","../assets/sprites/villain/summonDeath.png",{
 k.loadSprite("level1","../maps/level1.png")
 k.loadSprite("level2","../maps/level2.png")
 k.loadSound("backgroundSound","../assets/sounds/Ballad of Ashenwood.mp3")
+k.loadSound("errieMusic","../assets/sounds/vgm-atmospheric-air.mp3")

@@ -3,10 +3,10 @@ export function makeSkeleton(k, initialPos) {
         k.pos(initialPos),
         k.sprite("skeleton-walk", { anim: "walk" }),
         k.area({
-            shape: new k.Rect(k.vec2(0), 20, 50),
+            shape: new k.Rect(k.vec2(0), 20, 40),
             collisionIgnore: ["cameraZone"]
         }),
-        k.body({ mass: 50, }),
+        k.body({ mass: 50}),
         k.anchor("center"),//tells from where all the game obj are centered
         "skeleton",
         k.health(2),
