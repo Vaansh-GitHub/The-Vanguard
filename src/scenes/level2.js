@@ -61,16 +61,16 @@ export function level2(k, level2Data) {
             boss.setBehaviour();
             boss.setEvents();
         }
-        // if (position.type === "skeleton") {
-        //     const skeleton = map.add(makeSkeleton(k, k.vec2(position.x, position.y)))
-        //     skeleton.setBehaviour();
-        //     skeleton.setEvents();
-        // }
+        if (position.type === "skeleton") {
+            const skeleton = map.add(makeSkeleton(k, k.vec2(position.x, position.y)))
+            skeleton.setBehaviour();
+            skeleton.setEvents();
+        }
     }
 
     //Setting the Exit and Entry Point Colliders
     setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
-    //k.bgMusic = k.play("errieMusic", { loop: true });
+    k.bgMusic = k.play("errieMusic", { loop: true });
 }

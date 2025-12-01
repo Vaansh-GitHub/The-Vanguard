@@ -13,6 +13,11 @@ export function makePlayer(k) {
         {
             speed: 200,
             kills: 0,
+            disableControls() {
+                  for (const handler of this.controlHandlers) {
+                       handler.cancel();
+                  }
+            },
             usePreserveSprite: function(name) {
                    const prevFlip = this.flipX;
                    this.use(k.sprite(name));
@@ -39,8 +44,8 @@ export function makePlayer(k) {
                             this.isAttacking = true;
                                 this.usePreserveSprite("player-attack") 
                             const attackHitBox = this.add([
-                                k.pos(0, 2),
-                                k.area({ shape: new k.Rect(k.vec2(this.flipX?-25:0, -30), 90, 45) }),
+                                k.pos(this.flipX?-90:0, 2),
+                                k.area({ shape: new k.Rect(k.vec2(0, -30), 90, 45) }),
                                 "attack-hitbox",
                             ])
                             this.play("attack");
@@ -213,9 +218,6 @@ export function makePlayer(k) {
                 }
 
                 k.go(destinationName, previousSceneData);
-            },
-            disableControls:function(){
-
             },
         }
     ])

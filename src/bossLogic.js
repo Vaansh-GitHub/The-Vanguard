@@ -1,3 +1,5 @@
+import { blink } from "./common.js";
+
 export function makeBoss(k, player) {
     return k.make([
         k.pos(),
@@ -8,9 +10,10 @@ export function makeBoss(k, player) {
         }),
         k.body({ gravityScale: 0 }),
         k.anchor("center"),
-        k.health(5),
+        k.health(10),
         k.state("idle", ["idle", "follow", "attack"]),
         "boss",
+        k.opacity(1),
         {
             speed: 100,
             setPosition: function (x, y) {
@@ -76,9 +79,23 @@ export function makeBoss(k, player) {
                     this.hurt(1);
                     console.log("Boss hp", this.hp());
                 })
-                this.on("hurt", () => {
+                this.on("hurt", async () => {
+                    blink();
                     if (this.hp() === 0) {
-
+                        await player.disableControls();
+                        this.collisionIgnore = ["player"];
+                        this.unuse("body")
+                        this.use(k.sprite("villain-death"))
+                        await this.play("death");
+                        k.wait(1.5,()=>{
+                            this.destroy()
+                            k.go("final")
+                            if (k && k.bgMusic && typeof k.bgMusic.stop === "function") {
+                                k.bgMusic.stop();
+                                k.bgMusic = null;
+                            }
+                            k.bgMusic = k.play("victory");
+                        })
                     }
                 })
             },
