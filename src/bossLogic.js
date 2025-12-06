@@ -1,4 +1,4 @@
-import { blink } from "./common.js";
+import { blink, stopMusic } from "./common.js";
 
 export function makeBoss(k, player) {
     return k.make([
@@ -25,10 +25,10 @@ export function makeBoss(k, player) {
                     handler.cancel();
                 }
             },
-            usePreserveSprite: function(name) {
-                    const prevFlip = this.flipX;
-                    this.use(k.sprite(name));
-                    this.flipX = prevFlip;
+            usePreserveSprite: function (name) {
+                const prevFlip = this.flipX;
+                this.use(k.sprite(name));
+                this.flipX = prevFlip;
             },
             setBehaviour: function () {
                 this.onStateEnter("idle", async () => {
@@ -87,13 +87,10 @@ export function makeBoss(k, player) {
                         this.unuse("body")
                         this.use(k.sprite("villain-death"))
                         await this.play("death");
-                        k.wait(1.5,()=>{
+                        k.wait(1.5, () => {
                             this.destroy()
                             k.go("final")
-                            if (k && k.bgMusic && typeof k.bgMusic.stop === "function") {
-                                k.bgMusic.stop();
-                                k.bgMusic = null;
-                            }
+                            stopMusic(k, k.bgMusic);
                             k.bgMusic = k.play("victory");
                         })
                     }

@@ -1,3 +1,4 @@
+import { stopMusic } from "./common.js";
 export function makePlayer(k) {
     return k.make([
         k.pos(),
@@ -14,14 +15,14 @@ export function makePlayer(k) {
             speed: 200,
             kills: 0,
             disableControls() {
-                  for (const handler of this.controlHandlers) {
-                       handler.cancel();
-                  }
+                for (const handler of this.controlHandlers) {
+                    handler.cancel();
+                }
             },
-            usePreserveSprite: function(name) {
-                   const prevFlip = this.flipX;
-                   this.use(k.sprite(name));
-                   this.flipX = prevFlip;
+            usePreserveSprite: function (name) {
+                const prevFlip = this.flipX;
+                this.use(k.sprite(name));
+                this.flipX = prevFlip;
             },
             setPosition: function (x, y) {
                 this.pos.x = x;
@@ -34,7 +35,7 @@ export function makePlayer(k) {
                     k.onKeyPress((key) => {
                         if (key === "w" && !this.isAttacking && this.isGrounded()) {
                             if (this.curAnim() !== "jump") {
-                                    this.usePreserveSprite("player-jump")
+                                this.usePreserveSprite("player-jump")
                                 this.play("jump");
                             }
                             this.doubleJump();
@@ -42,9 +43,9 @@ export function makePlayer(k) {
                         }
                         if (key === "space" && this.isGrounded() && !this.isAttacking) {
                             this.isAttacking = true;
-                                this.usePreserveSprite("player-attack") 
+                            this.usePreserveSprite("player-attack")
                             const attackHitBox = this.add([
-                                k.pos(this.flipX?-90:0, 2),
+                                k.pos(this.flipX ? -90 : 0, 2),
                                 k.area({ shape: new k.Rect(k.vec2(0, -30), 90, 45) }),
                                 "attack-hitbox",
                             ])
@@ -52,7 +53,7 @@ export function makePlayer(k) {
                             k.wait(0.4, () => {
                                 attackHitBox.destroy();
                                 this.isAttacking = false;
-                                    this.usePreserveSprite("player-idle")
+                                this.usePreserveSprite("player-idle")
                                 this.play("idle");
                             });
                         }
@@ -61,7 +62,7 @@ export function makePlayer(k) {
                     k.onKeyDown((key) => {
                         if (key === "a" && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
-                                  this.usePreserveSprite("player-run")
+                                this.usePreserveSprite("player-run")
                                 this.play("run");
                             }
                             this.flipX = true;
@@ -71,7 +72,7 @@ export function makePlayer(k) {
                         }
                         if (key === "d" && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
-                                  this.usePreserveSprite("player-run")
+                                this.usePreserveSprite("player-run")
                                 this.play("run");
                             }
                             this.flipX = false;
@@ -89,7 +90,7 @@ export function makePlayer(k) {
                             this.isGrounded()) {
 
                             //this.flipX = this.lastFlipX;
-                                this.usePreserveSprite("player-idle")
+                            this.usePreserveSprite("player-idle")
                             this.play("idle");
                         }
                     })
@@ -98,7 +99,7 @@ export function makePlayer(k) {
             setEvents: function () {
                 this.onCollide("skeleton-hitbox", () => {
                     this.hurt(1);
-                        this.usePreserveSprite("player-hit")
+                    this.usePreserveSprite("player-hit")
                     this.play("hit")
                     k.wait(0.3, () => {
                         if (this.hp() === 0) {
@@ -118,7 +119,18 @@ export function makePlayer(k) {
                         }
                     })
                 })
-                this.onCollide("boss",async ()=>{
+                this.onCollide("boss", async () => {
+                    this.hurt(1);
+                    this.use(k.sprite("player-hit"))
+                    await this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() === 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
+                })
+                this.onCollide("skeleton", async () => {
                     this.hurt(1);
                     this.use(k.sprite("player-hit"))
                     await this.play("hit")
@@ -146,7 +158,7 @@ export function makePlayer(k) {
                     this.play("fall");
                 })
                 this.on("die", async () => {
-                    this.collisionIgnore = ["skeleton","boss"];
+                    this.collisionIgnore = ["skeleton", "boss"];
                     this.use(k.sprite("player-death"));
                     await this.play("death");
                     k.wait(1.5, () => {
@@ -162,6 +174,10 @@ export function makePlayer(k) {
                         this.respawn("level2");
                     }
                 })
+                this.onCollide("treasure", () => {
+                    stopMusic(k, k.bgMusic)
+                    k.go("upgradePlayer");
+                })
 
             },
             setPassThrough: function () {
@@ -175,8 +191,7 @@ export function makePlayer(k) {
                     if (collision.target.is("skeleton")) {
                         collision.preventResolution(); //for preventing collision resolution so that player can pass through
                     }
-                    if(collision.target.is("boss"))
-                    {
+                    if (collision.target.is("boss")) {
                         collision.preventResolution();
                     }
                 });
@@ -201,22 +216,9 @@ export function makePlayer(k) {
 
                 // Try running the game again - the passthrough collision detection should work properly now.
             },
-            respawn: function (destinationName, previousSceneData = { exitName: null }, music) {
+            respawn: function (destinationName, previousSceneData = { exitName: null }) {
                 // stop background music if available
-                try {
-                    // prefer music handle passed in
-                    if (music && typeof music.stop === "function") {
-                        music.stop();
-                    }
-                    // otherwise stop the stored bgMusic on k (set in level scenes)
-                    else if (k && k.bgMusic && typeof k.bgMusic.stop === "function") {
-                        k.bgMusic.stop();
-                        k.bgMusic = null;
-                    }
-                } catch (e) {
-                    console.warn("Could not stop background music:", e);
-                }
-
+                stopMusic(k, k.bgMusic);
                 k.go(destinationName, previousSceneData);
             },
         }
