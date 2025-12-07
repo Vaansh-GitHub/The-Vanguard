@@ -144,10 +144,10 @@ k.loadSprite("player2-idle", "../assets/sprites/hero2/Idle.png", {
     }
 });
 k.loadSprite("player2-jump", "../assets/sprites/hero2/Jump.png", {
-    sliceX: 8,
+    sliceX: 2,
     sliceY: 1,
     anims: {
-        jump: { from: 0, to: 7, loop: true },
+        jump: { from: 0, to: 1, loop: true },
     }
 });
 k.loadSprite("player2-fall", "../assets/sprites/hero2/Fall.png", {

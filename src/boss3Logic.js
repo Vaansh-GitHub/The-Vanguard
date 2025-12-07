@@ -4,14 +4,14 @@ export function makeBoss(k, player) {
     return k.make([
         k.scale(0.8),
         k.pos(),
-        k.sprite("boss3-idle", { anim: "idle" }),
+        k.sprite("boss3-idle"),
         k.area({
             shape: new k.Rect(k.vec2(0, 50), 50, 60),
             collisionIgnore: [],
         }),
         k.body({}),
         k.anchor("center"),
-        k.health(1),
+        k.health(10),
         k.state("idle", ["idle", "follow", "attack", "stop-attacking", "attacking"]),
         "boss",
         k.opacity(1),
@@ -31,7 +31,7 @@ export function makeBoss(k, player) {
                     if (this.hp() != 0) {
                         this.usePreserveSprite("boss3-idle");
                         this.play("idle");
-                        k.wait(2, () => {
+                        k.wait(0.5, () => {
                             this.enterState("follow");
                         })
                     }
@@ -52,6 +52,9 @@ export function makeBoss(k, player) {
                 });
 
                 this.onStateEnter("attack", () => {
+                    if (this._isAttacking) return;
+                    this._isAttacking = true;
+
                     this.collisionIgnore = ["player"];
                     this.usePreserveSprite("boss3-attack");
                     this.play("attack");
@@ -63,22 +66,33 @@ export function makeBoss(k, player) {
                     this.collisionIgnore = ["player"];
                     const bossHitBox = this.add([
                         k.pos(0, 50),
-                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? 0 : -110, -30), 110, 50) }),
+                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? 0 : -130, -30), 130, 60) }),
                         "boss-hitbox",
                     ]);
 
-                    k.wait(1.2, () => {
+                    bossHitBox.onUpdate(() => {
+                        if (this.isColliding(player)) {
+                            player.hurt(1);
+                            player.usePreserveSprite("player2-hit");
+                            player.play("hit");
+                            k.wait(0.3, () => {
+                                if (player.hp() === 0) {
+                                    player.trigger("die");
+                                    return;
+                                }
+                            })
+                        }
+                    })
+                    k.wait(1, () => {
                         this.enterState("stop-attacking");
                     })
                 });
 
-                this.onStateEnd("stop-attacking", () => {
+                this.onStateEnter("stop-attacking", () => {
+                    this._isAttacking = false;
+                    this.collisionIgnore = ["player"];
                     const bossHitBox = k.get("boss-hitbox", { recursive: true })[0];
                     if (bossHitBox) k.destroy(bossHitBox);
-                });
-
-                this.onStateEnter("stop-attacking", () => {
-                    this.collisionIgnore = ["player"];
                     this.enterState("idle");
                 });
 
@@ -96,19 +110,15 @@ export function makeBoss(k, player) {
                         await this.play("death");
                         k.wait(2, () => {
                             this.destroy()
-                            k.go("final")
+                            k.go("level6")
                             stopMusic(k, k.bgMusic);
-                            k.bgMusic = k.play("victory");
+                            k.bgMusic = k.play("backgroundSound");
                         })
                     }
                 })
             },
             setEvents: function () {
-                this.onAnimEnd((anim) => {
-                    if (anim === "attack") {
-                        this.enterState("stop-attacking");
-                    }
-                });
+
             },
         },
     ])

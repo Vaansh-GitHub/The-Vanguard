@@ -102,21 +102,59 @@ export function makePlayer(k) {
                 )
             },
             setEvents: function () {
+                // this.onUpdate(() => {
+                //     const bossHitBox = k.get("boss-hitbox", { recursive: true })[0];
+                //     if (bossHitBox && this.isColliding(bossHitBox)) {
+                //         console.log("Collided with Boss-Hitbox")
+                //     }
+                // })
                 this.onCollide("skeleton-hitbox", () => {
                     this.hurt(1);
+                    this.usePreserveSprite("player2-hit")
+                    this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() <= 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
                 })
-                this.onCollide("boss", async () => {
+                this.onCollide("boss-hitbox", () => {
                     this.hurt(1);
+                    this.usePreserveSprite("player2-hit")
+                    this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() <= 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
                 })
-                this.onCollide("boss-hitbox", async () => {
+                this.onCollide("boss", () => {
                     this.hurt(1);
+                    this.usePreserveSprite("player2-hit")
+                    this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() <= 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
                 })
                 this.onCollide("skeleton", async () => {
                     this.hurt(1);
+                    this.usePreserveSprite("player2-hit")
+                    this.play("hit")
+                    k.wait(0.3, () => {
+                        if (this.hp() <= 0) {
+                            this.trigger("die");
+                            return;
+                        }
+                    })
                 })
-                this.onFall(async () => {
+                this.onFall(() => {
                     this.usePreserveSprite("player2-fall")
-                    await this.play("fall");
+                    this.play("fall");
                 })
                 this.onFallOff(async () => {
                     this.usePreserveSprite("player2-fall")
@@ -131,9 +169,10 @@ export function makePlayer(k) {
                     await this.play("fall");
                 })
                 this.on("die", async () => {
+                    this.disableControls();
                     this.collisionIgnore = ["skeleton", "boss"];
                     this.usePreserveSprite("player2-death");
-                    await this.play("death");
+                    this.play("death");
                     k.wait(1.5, () => {
                         this.respawn("level4")
                     })
