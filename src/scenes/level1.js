@@ -1,5 +1,6 @@
 import { makePlayer } from "../playerLogic.js";
-import {makeSkeleton} from "../skeletonLogic.js"
+import { makeSkeleton } from "../skeletonLogic.js"
+import { makeGoblin } from "../goblinLogic.js"
 import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level1(k, level1Data) {
     // make() method creates a game obj but does not adds a scene while add method can create as well as add the obj to the scene
@@ -43,20 +44,19 @@ export function level1(k, level1Data) {
 
     //Adding the player logic 
     const player = map.add(makePlayer(k));
-    k.playerData=player;
-    
+    k.playerData = player;
+
     for (let position of positions) {
         if (position.name === "player") {
             //Setting players properties
-            player.setPosition(position.x,position.y)
+            player.setPosition(position.x, position.y)
             player.setControls();
             player.setEvents();
             player.setPassThrough();
             continue;
         }
-        if(position.type==="skeleton")
-        {
-            const skeleton=map.add(makeSkeleton(k,k.vec2(position.x,position.y)))
+        if (position.type === "skeleton") {
+            const skeleton = map.add(makeSkeleton(k, k.vec2(position.x, position.y)))
             skeleton.setBehaviour();
             skeleton.setEvents();
         }

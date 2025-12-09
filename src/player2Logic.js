@@ -1,4 +1,4 @@
-import { stopMusic } from "./common.js";
+import { stopMusic, healthTracker, changeText } from "./common.js";
 export function makePlayer(k) {
     return k.make([
         k.pos(),
@@ -15,6 +15,13 @@ export function makePlayer(k) {
         {
             speed: 200,
             kills: 0,
+            updateHealthBar() {
+                if (this.healthTracker) {
+                    this.healthTracker.destroy();
+                }
+                this.healthTracker = healthTracker(k, "Player  HP  " + this.hp(), 40, 25, 70, 10)
+                k.add(this.healthTracker);
+            },
             disableControls() {
                 for (const handler of this.controlHandlers) {
                     handler.cancel();
@@ -31,7 +38,7 @@ export function makePlayer(k) {
             },
             setControls: function () {
                 this.controlHandlers = []
-
+                this.updateHealthBar()
                 this.controlHandlers.push(
                     k.onKeyPress(async (key) => {
                         if (key === "w" && !this.isAttacking && this.isGrounded()) {
@@ -108,8 +115,9 @@ export function makePlayer(k) {
                 //         console.log("Collided with Boss-Hitbox")
                 //     }
                 // })
-                this.onCollide("skeleton-hitbox", () => {
+                this.onCollide("creature-hitbox", () => {
                     this.hurt(1);
+                    this.updateHealthBar()
                     this.usePreserveSprite("player2-hit")
                     this.play("hit")
                     k.wait(0.3, () => {
@@ -121,6 +129,7 @@ export function makePlayer(k) {
                 })
                 this.onCollide("boss-hitbox", () => {
                     this.hurt(1);
+                    this.updateHealthBar()
                     this.usePreserveSprite("player2-hit")
                     this.play("hit")
                     k.wait(0.3, () => {
@@ -132,6 +141,7 @@ export function makePlayer(k) {
                 })
                 this.onCollide("boss", () => {
                     this.hurt(1);
+                    this.updateHealthBar()
                     this.usePreserveSprite("player2-hit")
                     this.play("hit")
                     k.wait(0.3, () => {
@@ -141,8 +151,9 @@ export function makePlayer(k) {
                         }
                     })
                 })
-                this.onCollide("skeleton", async () => {
+                this.onCollide("creature", async () => {
                     this.hurt(1);
+                    this.updateHealthBar()
                     this.usePreserveSprite("player2-hit")
                     this.play("hit")
                     k.wait(0.3, () => {
@@ -192,7 +203,7 @@ export function makePlayer(k) {
                 })
                 this.onCollide("door", () => {
                     stopMusic(k, k.bgMusic)
-                    k.go("level7");
+                    k.go("level5");
                 })
 
             },

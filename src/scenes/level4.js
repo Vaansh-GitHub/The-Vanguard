@@ -1,5 +1,6 @@
 import { makePlayer } from "../player2Logic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
+import { makeGoblin } from "../goblinLogic.js"
 import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level4(k, level4Data) {
     k.camScale(1);
@@ -49,7 +50,9 @@ export function level4(k, level4Data) {
             skeleton.setEvents();
         }
         if (position.type === "goblin") {
-
+            const goblin = map.add(makeGoblin(k, k.vec2(position.x, position.y)))
+            goblin.setBehaviour();
+            goblin.setEvents();
         }
         if (position.type === "bat") {
 

@@ -38,12 +38,20 @@ async function main() {
     })
 }
 main()
-k.scene("intro", () => { // Scene Method to define scene in kaboom js
+k.scene("intro", () => {
+    k.add(
+        makeNotificationBox(k, "Recommended to play over PC as the Game is not Optimised to  play over Handhelds\n\n Press Enter  to Continue", 900, 400)
+    )
+    k.onKeyPress("enter", () => {
+        k.go("instructions") //To start the default scene
+    })
+})
+k.scene("instructions", () => { // Scene Method to define scene in kaboom js
     k.add(
         makeNotificationBox(k, "'W' - to jump \n'A' - to move left \n'D' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level7") //To start the default scene
+        k.go("level1") //To start the default scene
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js
@@ -59,7 +67,7 @@ k.scene("upgradePlayer", () => { // Scene Method to define scene in kaboom js
         upgradePlayer(k, "Congrats You Got The Wizard Skin !! Click Enter to Start next Level", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("intro") //To start the default scene
+        k.go("level4") //To start the default scene
     })
 })
 

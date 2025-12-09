@@ -241,6 +241,79 @@ k.loadSprite("boss3-death", "../assets/sprites/boss3/boss3_death.png", {
     }
 });
 
+//Goblin
+k.loadSprite("goblin-idle", "../assets/sprites/goblin/Idle.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        idle: { from: 0, to: 3, loop: true },
+    }
+});
+k.loadSprite("goblin-walk", "../assets/sprites/goblin/Run.png", {
+    sliceX: 8,
+    sliceY: 1,
+    anims: {
+        walk: { from: 0, to: 7, loop: true },
+    }
+});
+k.loadSprite("goblin-attack", "../assets/sprites/goblin/Attack.png", {
+    sliceX: 8,
+    sliceY: 1,
+    anims: {
+        attack: { from: 0, to: 7, },
+    }
+});
+k.loadSprite("goblin-death", "../assets/sprites/goblin/Death.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        death: { from: 0, to: 3, },
+    }
+});
+k.loadSprite("goblin-hit", "../assets/sprites/goblin/Take hit.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        hit: { from: 0, to: 3, },
+    }
+});
+
+//Mushroom
+k.loadSprite("mushroom-idle", "../assets/sprites/mushroom/Idle.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        idle: { from: 0, to: 3, loop: true },
+    }
+});
+k.loadSprite("mushroom-walk", "../assets/sprites/mushroom/Run.png", {
+    sliceX: 8,
+    sliceY: 1,
+    anims: {
+        walk: { from: 0, to: 7, loop: true },
+    }
+});
+k.loadSprite("mushroom-attack", "../assets/sprites/mushroom/Attack.png", {
+    sliceX: 8,
+    sliceY: 1,
+    anims: {
+        attack: { from: 0, to: 7, },
+    }
+});
+k.loadSprite("mushroom-death", "../assets/sprites/mushroom/Death.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        death: { from: 0, to: 3, },
+    }
+});
+k.loadSprite("mushroom-hit", "../assets/sprites/mushroom/Take hit.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+        hit: { from: 0, to: 3, },
+    }
+});
 
 k.loadSprite("level1", "../maps/level1.png")
 k.loadSprite("level2", "../maps/level2.png")

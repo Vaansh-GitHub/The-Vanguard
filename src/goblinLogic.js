@@ -1,9 +1,9 @@
-export function makeSkeleton(k, initialPos) {
+export function makeGoblin(k, initialPos) {
     return k.make([
         k.pos(initialPos),
-        k.sprite("skeleton-walk", { anim: "walk" }),
+        k.sprite("goblin-walk", { anim: "walk" }),
         k.area({
-            shape: new k.Rect(k.vec2(0), 20, 40),
+            shape: new k.Rect(k.vec2(0, -10), 20, 30),
             collisionIgnore: ["cameraZone"]
         }),
         k.body({ mass: 50 }),
@@ -49,11 +49,11 @@ export function makeSkeleton(k, initialPos) {
                 })
 
                 this.onStateEnter("alert", async () => {
-                    this.use(k.sprite("skeleton-idle"))
+                    this.use(k.sprite("goblin-idle"))
                     this.play("idle");
                     this.flipX = player.pos.x <= this.pos.x;
                     await k.wait(1);
-                    this.use(k.sprite("skeleton-walk"))
+                    this.use(k.sprite("goblin-walk"))
                     this.play("walk")
                     if (this.pos.dist(player.pos) < this.range) {
                         this.enterState("attack");
@@ -69,7 +69,7 @@ export function makeSkeleton(k, initialPos) {
                         return;
                     }
                     this.flipX = player.pos.x <= this.pos.x;
-                    this.moveTo(k.vec2(player.pos.x + 20, player.pos.y), this.pursuitSpeed)//Function offered by kaboom to body containing elements it takes position and then a speed 
+                    this.moveTo(k.vec2(player.pos.x + 12, player.pos.y), this.pursuitSpeed)//Function offered by kaboom to body containing elements it takes position and then a speed 
                 })
             },
             setEvents() {
@@ -88,18 +88,18 @@ export function makeSkeleton(k, initialPos) {
                         this._attackCooldown = 0.8; // seconds between attacks
                         // perform attack
                         this._isPerformingAttack = true;
-                        this.use(k.sprite("skeleton-attack"));
+                        this.use(k.sprite("goblin-attack"));
                         this.play("attack");
                         const offX = (player.pos.x <= this.pos.x ? -60 : 0);
-                        const skeletonHitBox = this.add([
+                        const goblinHitBox = this.add([
                             k.pos(this.flipX ? -25 : 0, 10),
                             k.area({ shape: new k.Rect(k.vec2(offX, -30), 60, 45) }),
-                            "skeleton-hitbox",
+                            "goblin-hitbox",
                         ]);
                         // destroy hitbox after animation window
                         k.wait(0.7, () => {
-                            if (skeletonHitBox && skeletonHitBox.exists()) skeletonHitBox.destroy();
-                            this.use(k.sprite("skeleton-walk"));
+                            if (goblinHitBox && goblinHitBox.exists()) goblinHitBox.destroy();
+                            this.use(k.sprite("goblin-walk"));
                             this.play("walk");
                             this._isPerformingAttack = false;
                         });
@@ -108,7 +108,7 @@ export function makeSkeleton(k, initialPos) {
                 this.on("die", () => {
                     this.collisionIgnore = ["player"];
                     this.unuse("body")
-                    this.use(k.sprite("skeleton-death"))
+                    this.use(k.sprite("goblin-death"))
                     this.play("death");
                     k.wait(0.5, () => {
                         player.kills = player.kills + 1;
@@ -117,7 +117,7 @@ export function makeSkeleton(k, initialPos) {
                 })
                 this.onCollide("attack-hitbox", () => {
                     this.hurt(1);
-                    this.use(k.sprite("skeleton-hit"))
+                    this.use(k.sprite("goblin-hit"))
                     this.play("hit")
                     k.wait(0.3, () => {
                         if (this.hp() === 0) {

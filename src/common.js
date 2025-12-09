@@ -68,3 +68,32 @@ export function stopMusic(k, music) {
     console.warn("Could not stop background music:", e);
   }
 }
+
+export function healthTracker(k, content, x, y, wid, ht) {
+  const container = k.make([
+    k.rect(wid, ht),
+    k.color(k.Color.fromHex("#000000")),
+    k.fixed(),
+    k.pos(x, y),
+    k.area(),
+    k.anchor("center"),
+    {
+      close() {
+        k.destroy(this);
+      },
+    },
+  ]);
+  container.add([
+    k.text(content, {
+      font: "fonts",
+      size: 12,
+    }),
+    k.color(k.Color.fromHex("#ffffff")),
+    k.area(),
+    k.anchor("center"),
+  ]);
+  return container;
+}
+export function changeText(container, content) {
+  container.children[0].text = content;
+}

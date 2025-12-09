@@ -16,6 +16,13 @@ export function makeBoss(k, player) {
         "boss",
         k.opacity(1),
         {
+            updateHealthBar() {
+                if (this.healthTracker) {
+                    this.healthTracker.destroy();
+                }
+                this.healthTracker = healthTracker(k, "Boss  HP  " + this.hp(), k.width() - 40, 25, 70, 10)
+                k.add(this.healthTracker);
+            },
             setPosition: function (x, y) {
                 this.pos.x = x;
                 this.pos.y = y;
@@ -26,6 +33,7 @@ export function makeBoss(k, player) {
                 this.flipX = prevFlip;
             },
             setBehaviour: function () {
+                this.updateHealthBar()
                 this.onStateEnter("idle", () => {
                     this.collisionIgnore = ["player"];
                     if (this.hp() != 0) {
@@ -95,6 +103,7 @@ export function makeBoss(k, player) {
 
                 this.onCollide("attack-hitbox", () => {
                     this.hurt(1);
+                    this.updateHealthBar()
                     console.log("Boss hp", this.hp());
                 })
                 this.on("hurt", async () => {
