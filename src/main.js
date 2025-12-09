@@ -59,7 +59,7 @@ k.scene("final", () => { // Scene Method to define scene in kaboom js
         makeNotificationBox(k, "Congrats You Won !! Click Enter to Start again", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level3") //To start the default scene
+        k.go("intro") //To start the default scene
     })
 })
 k.scene("upgradePlayer", () => { // Scene Method to define scene in kaboom js

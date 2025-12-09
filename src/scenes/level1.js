@@ -1,6 +1,5 @@
 import { makePlayer } from "../playerLogic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
-import { makeGoblin } from "../goblinLogic.js"
 import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level1(k, level1Data) {
     // make() method creates a game obj but does not adds a scene while add method can create as well as add the obj to the scene

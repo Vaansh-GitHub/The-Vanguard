@@ -203,7 +203,7 @@ export function makePlayer(k) {
                 })
                 this.onCollide("door", () => {
                     stopMusic(k, k.bgMusic)
-                    k.go("level5");
+                    k.go("level7");
                 })
 
             },

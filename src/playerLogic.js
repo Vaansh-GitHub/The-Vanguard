@@ -188,6 +188,7 @@ export function makePlayer(k) {
                 })
                 this.onCollide("treasure", () => {
                     stopMusic(k, k.bgMusic)
+                    k.bgMusic = k.play("victory");
                     k.go("upgradePlayer");
                 })
 

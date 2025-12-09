@@ -86,7 +86,7 @@ export function makeSkeleton(k, initialPos) {
                     if (this._attackCooldown > 0) this._attackCooldown -= k.dt();
 
                     // if currently colliding with player and cooldown expired, perform an attack
-                    if (this.pos.dist(player.pos) < 60 && this._attackCooldown <= 0) {
+                    if (this.pos.dist(player.pos) <= 63 && this._attackCooldown <= 0) {
                         this._attackCooldown = 0.8; // seconds between attacks
                         // perform attack
                         this._isPerformingAttack = true;

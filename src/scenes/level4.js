@@ -1,6 +1,7 @@
 import { makePlayer } from "../player2Logic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
 import { makeGoblin } from "../goblinLogic.js"
+import { makeMushroom } from "../mushroomLogic.js";
 import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level4(k, level4Data) {
     k.camScale(1);
@@ -54,8 +55,10 @@ export function level4(k, level4Data) {
             goblin.setBehaviour();
             goblin.setEvents();
         }
-        if (position.type === "bat") {
-
+        if (position.type === "mushroom") {
+            const mushroom = map.add(makeMushroom(k, k.vec2(position.x, position.y)))
+            mushroom.setBehaviour();
+            mushroom.setEvents();
         }
     }
 

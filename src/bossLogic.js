@@ -98,7 +98,7 @@ export function makeBoss(k, player) {
                         await this.play("death");
                         k.wait(1.5, () => {
                             this.destroy()
-                            k.go("final")
+                            k.go("level3")
                             stopMusic(k, k.bgMusic);
                             k.bgMusic = k.play("victory");
                         })
