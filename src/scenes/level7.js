@@ -1,14 +1,16 @@
 import { makePlayer } from "../player2Logic.js";
-import { setColliders, setEntryAndExitPoints } from "./commonScriptForLevels.js"
-export function level6(k, level6Data) {
+import { makeBoss } from "../boss2Logic.js"
+import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+export function level7(k, level7Data) {
     k.camScale(0.8);
     k.camPos(400, 290);
     k.setGravity(1000);
-    const levellayers = level6Data.layers;
+    const levellayers = level7Data.layers;
 
-    const map = k.add([k.pos(0, -150), k.sprite("level6")])
+    const map = k.add([k.pos(0, -150), k.sprite("level7")])
     const colliders = []
     const positions = []
+    const cameras = []
     const exits = []
     for (let layer of levellayers) {
         if (layer.name === "positions") {
@@ -18,25 +20,24 @@ export function level6(k, level6Data) {
             colliders.push(...layer.objects)
             continue;
         }
+        // if (layer.name === "cameras") {
+        //     cameras.push(...layer.objects)
+        // }
         if (layer.name === "exits") {
             exits.push(...layer.objects)
         }
-        if (layer.name === "door") {
-            map.add([
-                k.pos(layer.objects[0].x, layer.objects[0].y),
-                k.area({
-                    shape: new k.Rect(k.vec2(0, 0), layer.objects[0].width, layer.objects[0].height),
-                }),
-                "door",
-                layer.type,
-            ]);
-        }
     }
-
     //Setting the colliders
     setColliders(k, map, colliders)
-    //Setting the player
+
+    // //Setting camera Zones
+    // setCameraZones(k, map, cameras)
+
+    //Adding the player logic 
     const player = map.add(makePlayer(k));
+    //Creating the boss
+    const boss = map.add(makeBoss(k, player))
+
     for (let position of positions) {
         if (position.name === "player") {
             //Setting players properties
@@ -46,11 +47,16 @@ export function level6(k, level6Data) {
             player.setPassThrough();
             continue;
         }
+        if (position.name === "boss") {
+            boss.setPosition(position.x, position.y)
+            boss.setBehaviour();
+            boss.setEvents();
+        }
     }
 
     //Setting the Exit and Entry Point Colliders
     setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
-    k.bgMusic = k.play("backgroundSound", { loop: true });
+    // k.bgMusic = k.play("errieMusic", { loop: true });
 }

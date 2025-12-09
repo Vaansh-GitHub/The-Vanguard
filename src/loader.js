@@ -193,6 +193,17 @@ k.loadSprite("player2-attack2", "../assets/sprites/hero2/Attack2.png", {
     }
 });
 
+//Boss 2
+k.loadSprite("boss2", "../assets/sprites/boss2/boss2_repacked.png", {
+    sliceX: 7,
+    sliceY: 7,
+    anims: {
+        idle: { from: 0, to: 15, loop: true },
+        walk: { from: 16, to: 27, loop: true },
+        attack: { from: 32, to: 47, },
+    }
+});
+
 //Boss 3
 k.loadSprite("boss3-idle", "../assets/sprites/boss3/boss3_idle.png", {
     sliceX: 6,
@@ -230,11 +241,14 @@ k.loadSprite("boss3-death", "../assets/sprites/boss3/boss3_death.png", {
     }
 });
 
+
 k.loadSprite("level1", "../maps/level1.png")
 k.loadSprite("level2", "../maps/level2.png")
 k.loadSprite("level3", "../maps/level3.png")
 k.loadSprite("level4", "../maps/level4.png")
 k.loadSprite("level5", "../maps/level5.png")
+k.loadSprite("level6", "../maps/level6.png")
+k.loadSprite("level7", "../maps/level7.png")
 k.loadSound("backgroundSound", "../assets/sounds/Ballad of Ashenwood.mp3")
 k.loadSound("errieMusic", "../assets/sounds/vgm-atmospheric-air.mp3")
 k.loadSound("victory", "../assets/sounds/victory.mp3")

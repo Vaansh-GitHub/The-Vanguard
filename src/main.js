@@ -5,12 +5,16 @@ import { level2 } from "./scenes/level2.js"
 import { level3 } from "./scenes/level3.js"
 import { level4 } from "./scenes/level4.js"
 import { level5 } from "./scenes/level5.js"
+import { level6 } from "./scenes/level6.js"
+import { level7 } from "./scenes/level7.js"
 async function main() {
     const level1Data = await (await fetch("../maps/level1.json")).json()
     const level2Data = await (await fetch("../maps/level2.json")).json()
     const level3Data = await (await fetch("../maps/level3.json")).json()
     const level4Data = await (await fetch("../maps/level4.json")).json()
     const level5Data = await (await fetch("../maps/level5.json")).json()
+    const level6Data = await (await fetch("../maps/level6.json")).json()
+    const level7Data = await (await fetch("../maps/level7.json")).json()
     k.scene("level1", () => { // Scene Method to define scene in kaboom js
         level1(k, level1Data);
     })
@@ -26,14 +30,20 @@ async function main() {
     k.scene("level5", () => {
         level5(k, level5Data)
     })
+    k.scene("level6", () => {
+        level6(k, level6Data)
+    })
+    k.scene("level7", () => {
+        level7(k, level7Data)
+    })
 }
 main()
 k.scene("intro", () => { // Scene Method to define scene in kaboom js
     k.add(
-        makeNotificationBox(k, "'w' to move up 'a'  to move left 'd' to move right and space to attack \npress enter to start", 900, 400)
+        makeNotificationBox(k, "'W' - to jump \n'A' - to move left \n'D' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level5") //To start the default scene
+        k.go("level7") //To start the default scene
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js

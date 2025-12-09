@@ -190,10 +190,10 @@ export function makePlayer(k) {
                 this.onCollide("dump", () => {
                     this.respawn("level4");
                 })
-                // this.onCollide("treasure", () => {
-                //     stopMusic(k, k.bgMusic)
-                //     k.go("upgradePlayer");
-                // })
+                this.onCollide("door", () => {
+                    stopMusic(k, k.bgMusic)
+                    k.go("level7");
+                })
 
             },
             setPassThrough: function () {
