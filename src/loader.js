@@ -325,4 +325,5 @@ k.loadSprite("level7", "../maps/level7.png")
 k.loadSound("backgroundSound", "../assets/sounds/Ballad of Ashenwood.mp3")
 k.loadSound("errieMusic", "../assets/sounds/vgm-atmospheric-air.mp3")
 k.loadSound("victory", "../assets/sounds/victory.mp3")
+k.loadSound("bossFightSound", "../assets/sounds/bossFightSound.mp3");
 k.loadFont("fonts", "../assets/fonts.TTF")
