@@ -1,5 +1,5 @@
 import { stopMusic, healthTracker, changeText } from "./common.js";
-export function makePlayer(k) {
+export function makePlayer(k, levelData) {
     return k.make([
         k.pos(),
         k.sprite("player2-idle"),
@@ -54,7 +54,7 @@ export function makePlayer(k) {
                             this.usePreserveSprite("player2-attack1")
                             const attackHitBox = this.add([
                                 k.pos(this.flipX ? -90 : 0, 2),
-                                k.area({ shape: new k.Rect(k.vec2(0, -30), 120, 60) }),
+                                k.area({ shape: new k.Rect(k.vec2(0, -30), 130, 60) }),
                                 "attack-hitbox",
                             ])
                             await this.play("attack");
@@ -62,7 +62,7 @@ export function makePlayer(k) {
                                 this.usePreserveSprite("player2-attack2")
                                 await this.play("attack")
                             })
-                            k.wait(1.2, () => {
+                            k.wait(1, () => {
                                 attackHitBox.destroy();
                                 this.isAttacking = false;
                                 this.usePreserveSprite("player2-idle")
@@ -109,12 +109,11 @@ export function makePlayer(k) {
                 )
             },
             setEvents: function () {
-                // this.onUpdate(() => {
-                //     const bossHitBox = k.get("boss-hitbox", { recursive: true })[0];
-                //     if (bossHitBox && this.isColliding(bossHitBox)) {
-                //         console.log("Collided with Boss-Hitbox")
-                //     }
-                // })
+                this.onUpdate(() => {
+                    if (this.pos.x < 0 + 1 || this.pos.x > levelData.width * levelData.tilewidth + 1 || this.pos.y < 0 + 1 || this.pos.y > levelData.height * levelData.tileheight + 1) {
+                        this.respawn("level4")
+                    }
+                })
                 this.onCollide("creature-hitbox", () => {
                     this.hurt(1);
                     this.updateHealthBar()

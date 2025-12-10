@@ -182,14 +182,14 @@ k.loadSprite("player2-attack1", "../assets/sprites/hero2/Attack1.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, },
+        attack: { from: 0, to: 7, speed: 15 },
     }
 });
 k.loadSprite("player2-attack2", "../assets/sprites/hero2/Attack2.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, },
+        attack: { from: 0, to: 7, speed: 15 },
     }
 });
 

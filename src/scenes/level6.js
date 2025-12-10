@@ -1,12 +1,12 @@
 import { makePlayer } from "../player2Logic.js";
-import { setColliders, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+import { setColliders, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level6(k, level6Data) {
     k.camScale(0.8);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level6Data.layers;
 
-    const map = k.add([k.pos(0, -150), k.sprite("level6")])
+    const map = k.add([k.pos(0, 0), k.sprite("level6")])
     const colliders = []
     const positions = []
     const exits = []
@@ -36,7 +36,9 @@ export function level6(k, level6Data) {
     //Setting the colliders
     setColliders(k, map, colliders)
     //Setting the player
-    const player = map.add(makePlayer(k));
+    const player = map.add(makePlayer(k, level6Data));
+
+    setCameraControls(k, map, player, level6Data);
     for (let position of positions) {
         if (position.name === "player") {
             //Setting players properties

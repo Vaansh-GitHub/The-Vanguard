@@ -1,13 +1,13 @@
 import { makePlayer } from "../player2Logic.js";
 import { makeBoss } from "../boss3Logic.js"
-import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+import { setColliders, setCameraZones, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level5(k, level5Data) {
     k.camScale(0.8);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level5Data.layers;
 
-    const map = k.add([k.pos(0, -150), k.sprite("level5")])
+    const map = k.add([k.pos(0, 0), k.sprite("level5")])
     const colliders = []
     const positions = []
     const cameras = []
@@ -34,9 +34,11 @@ export function level5(k, level5Data) {
     // setCameraZones(k, map, cameras)
 
     //Adding the player logic 
-    const player = map.add(makePlayer(k));
+    const player = map.add(makePlayer(k, level5Data));
     //Creating the boss
     const boss = map.add(makeBoss(k, player))
+
+    setCameraControls(k, map, player, level5Data);
 
     for (let position of positions) {
         if (position.name === "player") {

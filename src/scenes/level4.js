@@ -2,7 +2,7 @@ import { makePlayer } from "../player2Logic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
 import { makeGoblin } from "../goblinLogic.js"
 import { makeMushroom } from "../mushroomLogic.js";
-import { setColliders, setCameraZones, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+import { setColliders, setCameraZones, setEntryAndExitPoints, setCameraControls } from "./commonScriptForLevels.js"
 export function level4(k, level4Data) {
     k.camScale(1);
     k.camPos(320, 170);
@@ -30,11 +30,13 @@ export function level4(k, level4Data) {
     setColliders(k, map, colliders)
 
     //Setting camera Zones
-    setCameraZones(k, map, cameras)
+    // setCameraZones(k, map, cameras)
 
     //Adding the player logic 
-    const player = map.add(makePlayer(k));
+    const player = map.add(makePlayer(k, level4Data));
     k.playerData = player;
+
+    setCameraControls(k, map, player, level4Data);
 
     for (let position of positions) {
         if (position.name === "player") {

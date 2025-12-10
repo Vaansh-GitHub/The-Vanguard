@@ -1,12 +1,12 @@
 import { makePlayer } from "../playerLogic.js";
-import { setColliders, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+import { setColliders, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level3(k, level3Data) {
     k.camScale(0.8);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level3Data.layers;
 
-    const map = k.add([k.pos(0, -150), k.sprite("level3")])
+    const map = k.add([k.pos(0, 0), k.sprite("level3")])
     const colliders = []
     const positions = []
     const exits = []
@@ -37,6 +37,8 @@ export function level3(k, level3Data) {
     setColliders(k, map, colliders)
     //Setting the player
     const player = map.add(makePlayer(k));
+
+    setCameraControls(k, map, player, level3Data);
     for (let position of positions) {
         if (position.name === "player") {
             //Setting players properties

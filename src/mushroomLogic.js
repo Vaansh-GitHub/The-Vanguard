@@ -15,7 +15,7 @@ export function makeMushroom(k, initialPos) {
         {
             speed: 20,
             pursuitSpeed: 40,
-            range: 100,
+            range: 80,
 
             setBehaviour() {
                 const player = k.get("player", { recursive: true })[0]//As the player is the part of map object hence it searches for it recursively
@@ -80,7 +80,7 @@ export function makeMushroom(k, initialPos) {
                 this._attackCooldown = 2;
                 this._isPerformingAttack = false;
                 //onUpdate() function runs on a component every 60 frames
-                this.onUpdate(() => {
+                this.onUpdate(async () => {
                     if (!player || !player.exists() || player.hp() <= 0) return;
                     // decrease cooldown every second
                     if (this._attackCooldown > 0) this._attackCooldown -= k.dt();
@@ -92,6 +92,7 @@ export function makeMushroom(k, initialPos) {
                         this._isPerformingAttack = true;
                         this.use(k.sprite("mushroom-attack"));
                         this.play("attack");
+                        await k.wait(0.3);
                         const offX = (player.pos.x <= this.pos.x ? -60 : 0);
                         const mushroomHitBox = this.add([
                             k.pos(this.flipX ? -25 : 0, 10),

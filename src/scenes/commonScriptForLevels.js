@@ -107,3 +107,22 @@ export function setEntryAndExitPoints(k, map, exits) {
         }
     }
 }
+export function setCameraControls(k, map, player, levelData) {
+    k.onUpdate(() => {
+        let posX = player.pos.x;
+        let posY = player.pos.y;
+        if (player.pos.x < k.width() / 2) {
+            posX = k.width() / 2
+        }
+        if (player.pos.x > levelData.width * levelData.tilewidth - k.width() / 2) {
+            posX = levelData.width * levelData.tilewidth - k.width() / 2
+        }
+        if (player.pos.y < k.height() / 2) {
+            posY = k.height() / 2;
+        }
+        if (player.pos.y > levelData.height * levelData.tileheight - k.height() / 2) {
+            posY = levelData.height * levelData.tileheight - k.height() / 2
+        }
+        k.camPos(posX, posY)
+    })
+}

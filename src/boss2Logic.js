@@ -1,4 +1,4 @@
-import { blink, stopMusic } from "./common.js";
+import { blink, stopMusic, healthTracker, changeText } from "./common.js";
 //Sometimes assests need to be repacked to fit in the canvas otherwise we can get a black screen and a error in the console stating that the asset is too large (texture too large)
 //To repack the asset use the repack_boss2.py script(Got this over AI nice solution)
 export function makeBoss(k, player) {
