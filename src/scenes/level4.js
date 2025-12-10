@@ -47,21 +47,21 @@ export function level4(k, level4Data) {
             player.setPassThrough();
             continue;
         }
-        if (position.type === "skeleton") {
-            const skeleton = map.add(makeSkeleton(k, k.vec2(position.x, position.y)))
-            skeleton.setBehaviour();
-            skeleton.setEvents();
-        }
-        if (position.type === "goblin") {
-            const goblin = map.add(makeGoblin(k, k.vec2(position.x, position.y)))
-            goblin.setBehaviour();
-            goblin.setEvents();
-        }
-        if (position.type === "mushroom") {
-            const mushroom = map.add(makeMushroom(k, k.vec2(position.x, position.y)))
-            mushroom.setBehaviour();
-            mushroom.setEvents();
-        }
+        // if (position.type === "skeleton") {
+        //     const skeleton = map.add(makeSkeleton(k, k.vec2(position.x, position.y)))
+        //     skeleton.setBehaviour();
+        //     skeleton.setEvents();
+        // }
+        // if (position.type === "goblin") {
+        //     const goblin = map.add(makeGoblin(k, k.vec2(position.x, position.y)))
+        //     goblin.setBehaviour();
+        //     goblin.setEvents();
+        // }
+        // if (position.type === "mushroom") {
+        //     const mushroom = map.add(makeMushroom(k, k.vec2(position.x, position.y)))
+        //     mushroom.setBehaviour();
+        //     mushroom.setEvents();
+        // }
     }
 
 

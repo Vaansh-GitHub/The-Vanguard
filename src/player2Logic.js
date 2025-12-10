@@ -62,7 +62,7 @@ export function makePlayer(k, levelData) {
                                 this.usePreserveSprite("player2-attack2")
                                 await this.play("attack")
                             })
-                            k.wait(1, () => {
+                            k.wait(0.8, () => {
                                 attackHitBox.destroy();
                                 this.isAttacking = false;
                                 this.usePreserveSprite("player2-idle")
@@ -111,7 +111,7 @@ export function makePlayer(k, levelData) {
             setEvents: function () {
                 this.onUpdate(() => {
                     if (this.pos.x < 0 + 1 || this.pos.x > levelData.width * levelData.tilewidth + 1 || this.pos.y < 0 + 1 || this.pos.y > levelData.height * levelData.tileheight + 1) {
-                        this.respawn("level4")
+                        this.respawn(levelData.name)
                     }
                 })
                 this.onCollide("creature-hitbox", () => {

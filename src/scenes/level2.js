@@ -11,7 +11,7 @@ export function level2(k, level2Data) {
     //     k.text("Hello"),       //Component
     //     k.pos(80,50)         //Position of component on campus
     // ])
-    k.camScale(0.8);
+    k.camScale(1);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level2Data.layers;

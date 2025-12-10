@@ -14,6 +14,7 @@ export function level1(k, level1Data) {
     k.setGravity(1000);
     const levellayers = level1Data.layers;
 
+    console.log(level1Data)
     const map = k.add([k.pos(0, 0), k.sprite("level1")])
     const colliders = []
     const positions = []

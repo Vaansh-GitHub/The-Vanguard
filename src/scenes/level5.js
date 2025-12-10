@@ -2,7 +2,7 @@ import { makePlayer } from "../player2Logic.js";
 import { makeBoss } from "../boss3Logic.js"
 import { setColliders, setCameraZones, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level5(k, level5Data) {
-    k.camScale(0.8);
+    k.camScale(1);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level5Data.layers;

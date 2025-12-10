@@ -1,7 +1,7 @@
 import { makePlayer } from "../playerLogic.js";
 import { setColliders, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level3(k, level3Data) {
-    k.camScale(0.8);
+    k.camScale(1);
     k.camPos(400, 290);
     k.setGravity(1000);
     const levellayers = level3Data.layers;
