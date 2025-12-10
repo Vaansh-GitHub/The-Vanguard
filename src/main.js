@@ -16,13 +16,15 @@ async function main() {
     const level6Data = await (await fetch("../maps/level6.json")).json()
     const level7Data = await (await fetch("../maps/level7.json")).json()
     k.scene("level1", () => { // Scene Method to define scene in kaboom js
-        // level1Data.name="level1"
+        level1Data.name = "level1"
         level1(k, level1Data);
     })
     k.scene("level2", () => { // Scene Method to define scene in kaboom js
+        level2Data.name = "level2"
         level2(k, level2Data)
     })
     k.scene("level3", () => {
+        level3Data.name = "level3"
         level3(k, level3Data)
     })
     k.scene("level4", () => {
@@ -30,12 +32,15 @@ async function main() {
         level4(k, level4Data)
     })
     k.scene("level5", () => {
+        level5Data.name = "level5"
         level5(k, level5Data)
     })
     k.scene("level6", () => {
+        level6Data.name = "level6"
         level6(k, level6Data)
     })
     k.scene("level7", () => {
+        level7Data.name = "level7"
         level7(k, level7Data)
     })
 }
@@ -53,7 +58,7 @@ k.scene("instructions", () => { // Scene Method to define scene in kaboom js
         makeNotificationBox(k, "'W' - to jump \n'A' - to move left \n'D' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level4") //To start the default scene
+        k.go("level1") //To start the default scene
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js
