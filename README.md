@@ -23,11 +23,11 @@
 <p><strong>Space</strong> : Attack ⚔️</p>
 
 ## Credits 🎬
-
-### Special Thanks to 🙏:
-- itch.io to provide the game assets 🎨
-- Vercel for hosting the game, and ☁️
-- My Fellow team members for their support and encouragement 🤝
+<p>Special Thanks to: 🙏</p>
+<p>itch.io to provide the game assets 🎨</p>
+<p>Vercel for hosting the game, and ☁️</p>
+<p>My Fellow team members for their support and encouragement 🤝</p>
+<p></p>
 
 ## Links 🔗
 <p><a href="https://the-vanguard.vercel.app/">Click Here !</a> To visit the Game 🕹️.</p>
