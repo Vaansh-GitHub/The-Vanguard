@@ -60,7 +60,7 @@ k.scene("intro", () => {
 })
 k.scene("instructions", () => { // Scene Method to define scene in kaboom js
     k.add(
-        makeNotificationBox(k, "'W' - to jump \n'A' - to move left \n'D' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
+        makeNotificationBox(k, "'W' or 'Up Arrow' - to jump \n'A' or 'Left Arrow' - to move left \n'D' or 'Right Arrow' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
         k.go("level1") //To start the default scene

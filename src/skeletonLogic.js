@@ -15,7 +15,7 @@ export function makeSkeleton(k, initialPos) {
         {
             speed: 20,
             pursuitSpeed: 40,
-            range: 80,
+            range: 100,
 
             setBehaviour() {
                 const player = k.get("player", { recursive: true })[0]//As the player is the part of map object hence it searches for it recursively

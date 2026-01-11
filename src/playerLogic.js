@@ -91,7 +91,7 @@ export function makePlayer(k, levelData) {
 
                 this.controlHandlers.push(
                     k.onKeyPress((key) => {
-                        if (key === "w") {
+                        if (key === "w" || key === "up") {
                             this.moveUp();
                             return;
                         }
@@ -102,11 +102,11 @@ export function makePlayer(k, levelData) {
                     }))
                 this.controlHandlers.push(
                     k.onKeyDown((key) => {
-                        if (key === "a") {
+                        if (key === "a" || key === "left") {
                             this.moveLeft();
                             return;
                         }
-                        if (key === "d") {
+                        if (key === "d" || key === "right") {
                             this.moveRight();
                             return;
                         }

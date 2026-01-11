@@ -41,7 +41,7 @@ export function makePlayer(k, levelData) {
                 this.updateHealthBar()
                 this.controlHandlers.push(
                     k.onKeyPress(async (key) => {
-                        if (key === "w" && !this.isAttacking && this.isGrounded()) {
+                        if ((key === "w" || key === "up") && !this.isAttacking && this.isGrounded()) {
                             if (this.curAnim() !== "jump") {
                                 this.usePreserveSprite("player2-jump")
                                 await this.play("jump");
@@ -72,7 +72,7 @@ export function makePlayer(k, levelData) {
                     }))
                 this.controlHandlers.push(
                     k.onKeyDown((key) => {
-                        if (key === "a" && !this.isAttacking) {
+                        if ((key === "a" || key === "left") && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
                                 this.usePreserveSprite("player2-run")
                                 this.play("run");
@@ -82,7 +82,7 @@ export function makePlayer(k, levelData) {
                             this.move(-this.speed, 0);
                             return;
                         }
-                        if (key === "d" && !this.isAttacking) {
+                        if ((key === "d" || key === "right") && !this.isAttacking) {
                             if (this.curAnim() !== "run" && this.isGrounded()) {
                                 this.usePreserveSprite("player2-run")
                                 this.play("run");
