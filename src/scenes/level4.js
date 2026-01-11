@@ -2,6 +2,7 @@ import { makePlayer } from "../player2Logic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
 import { makeGoblin } from "../goblinLogic.js"
 import { makeMushroom } from "../mushroomLogic.js";
+import { stopMusic } from "./common.js";
 // import { makeBoss } from "../boss6Logic.js";
 import { setColliders, setCameraZones, setEntryAndExitPoints, setCameraControls } from "./commonScriptForLevels.js"
 export function level4(k, level4Data) {

@@ -1,5 +1,6 @@
 import { makePlayer } from "../player2Logic.js";
 import { setColliders, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
+import { stopMusic } from "./common.js";
 export function level6(k, level6Data) {
     k.camScale(1);
     k.camPos(400, 290);

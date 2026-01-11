@@ -1,5 +1,6 @@
 import { makePlayer } from "../player2Logic.js";
 import { makeBoss } from "../boss3Logic.js"
+import { stopMusic } from "./common.js";
 import { setColliders, setCameraZones, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
 export function level5(k, level5Data) {
     k.camScale(1);
