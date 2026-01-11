@@ -3,12 +3,12 @@ import { blink, stopMusic, healthTracker, changeText } from "./common.js";
 export function makeBoss(k, player) {
     return k.make([
         k.pos(),
-        k.sprite("boss6-idle"),
+        k.sprite("boss7-idle", { anim: "idle" }),
         k.area({
-            shape: new k.Rect(k.vec2(0, -5), 30, 40),
+            shape: new k.Rect(k.vec2(0, 15), 50, 60),
             collisionIgnore: [],
         }),
-        k.scale(1.5),
+        k.scale(1.2),
         k.body({}),
         k.anchor("center"),
         k.health(15),
@@ -37,7 +37,7 @@ export function makeBoss(k, player) {
                 this.onStateEnter("idle", () => {
                     this.collisionIgnore = ["player"];
                     if (this.hp() != 0) {
-                        this.usePreserveSprite("boss6-idle");
+                        this.usePreserveSprite("boss7-idle");
                         this.play("idle");
                         k.wait(0.3, () => {//This delay is to prevent the boss from attacking the player
                             this.enterState("follow");
@@ -46,15 +46,15 @@ export function makeBoss(k, player) {
                 });
                 this.onStateEnter("follow", () => {
                     this.collisionIgnore = ["player"];
-                    this.usePreserveSprite("boss6-walk");
+                    this.usePreserveSprite("boss7-walk");
                     this.play("walk");
                 });
 
                 this.onStateUpdate("follow", () => {
-                    this.flipX = player.pos.x <= this.pos.x;
-                    this.moveTo(k.vec2(player.pos.x + 50, this.pos.y), 100);//Here 100 is set as the speed of walking
+                    this.flipX = player.pos.x >= this.pos.x;
+                    this.moveTo(k.vec2(player.pos.x + 60, this.pos.y), 100);//Here 100 is set as the speed of walking
 
-                    if (this.pos.dist(player.pos) < 60) {
+                    if (this.pos.dist(player.pos) < 80) {
                         this.enterState("attack");
                     }
                 });
@@ -64,7 +64,7 @@ export function makeBoss(k, player) {
                     this._isAttacking = true;
 
                     this.collisionIgnore = ["player"];
-                    this.usePreserveSprite("boss6-attack");
+                    this.usePreserveSprite("boss7-attack");
                     this.play("attack");
                     k.wait(0.4, () => {
                         this.enterState("attacking");
@@ -74,7 +74,7 @@ export function makeBoss(k, player) {
                     this.collisionIgnore = ["player"];
                     const bossHitBox = this.add([
                         k.pos(0, 50),
-                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? -40 : 0, -70), 40, 40) }),
+                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? 0 : -100, -70), 100, 60) }),
                         "boss-hitbox",
                     ]);
 
@@ -110,17 +110,18 @@ export function makeBoss(k, player) {
                     console.log("Boss hp", this.hp());
                 })
                 this.on("hurt", async () => {
-                    this.usePreserveSprite("boss6-hit");
+                    this.usePreserveSprite("boss7-hit");
                     this.play("hit");
                     if (this.hp() === 0) {
                         await player.disableControls();
                         this.unuse("body")
-                        this.use(k.sprite("boss6-death"))
+                        this.use(k.sprite("boss7-death"))
                         await this.play("death");
                         k.wait(2, () => {
                             this.destroy()
-                            k.go("level9")
+                            k.go("final")
                             stopMusic(k, k.bgMusic);
+                            k.bgMusic = k.play("victory");
                         })
                     }
                 })

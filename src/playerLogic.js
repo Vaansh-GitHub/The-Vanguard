@@ -199,7 +199,7 @@ export function makePlayer(k, levelData) {
                     this.use(k.sprite("player-death"));
                     await this.play("death");
                     k.wait(1.5, () => {
-                        this.respawn("level1")
+                        this.respawn(levelData.name)
                     })
                 })
                 this.on("hurt", () => {

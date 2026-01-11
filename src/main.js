@@ -1,4 +1,4 @@
-import { makeNotificationBox, upgradePlayer } from "./common.js";
+import { makeNotificationBox, stopMusic, upgradePlayer } from "./common.js";
 import { k } from "./loader.js";
 import { level1 } from "./scenes/level1.js"
 import { level2 } from "./scenes/level2.js"
@@ -8,6 +8,7 @@ import { level5 } from "./scenes/level5.js"
 import { level6 } from "./scenes/level6.js"
 import { level7 } from "./scenes/level7.js"
 import { level8 } from "./scenes/level8.js"
+import { level9 } from "./scenes/level9.js"
 async function main() {
     const level1Data = await (await fetch("../maps/level1.json")).json()
     const level2Data = await (await fetch("../maps/level2.json")).json()
@@ -16,6 +17,7 @@ async function main() {
     const level5Data = await (await fetch("../maps/level5.json")).json()
     const level6Data = await (await fetch("../maps/level6.json")).json()
     const level7Data = await (await fetch("../maps/level7.json")).json()
+    const level9Data = await (await fetch("../maps/level9.json")).json()
     k.scene("level1", () => { // Scene Method to define scene in kaboom js
         level1Data.name = "level1"
         level1(k, level1Data);
@@ -48,6 +50,10 @@ async function main() {
         level7Data.name = "level8"
         level8(k, level7Data)
     })
+    k.scene("level9", () => {
+        level9Data.name = "level9"
+        level9(k, level9Data)
+    })
 }
 main()
 k.scene("intro", () => {
@@ -74,6 +80,16 @@ k.scene("final", () => { // Scene Method to define scene in kaboom js
     )
     k.onKeyPress("enter", () => {
         k.go("intro") //To start the default scene
+    })
+})
+k.scene("message", () => { // Scene Method to define scene in kaboom js
+
+    k.add(
+        makeNotificationBox(k, "Seeing the rising power the deadly hallows are now coming to life to suppress the power themselves watch that!!!....", 900, 400)
+    )
+    k.onKeyPress("enter", () => {
+        stopMusic(k, k.bgMusic);
+        k.go("level6") //To start the default scene
     })
 })
 k.scene("upgradePlayer", () => { // Scene Method to define scene in kaboom js

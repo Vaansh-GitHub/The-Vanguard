@@ -187,7 +187,7 @@ export function makePlayer(k, levelData) {
                     this.usePreserveSprite("player2-death");
                     this.play("death");
                     k.wait(1.5, () => {
-                        this.respawn("level4")
+                        this.respawn(levelData.name);
                     })
                 })
                 this.on("hurt", () => {

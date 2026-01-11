@@ -201,7 +201,7 @@ k.loadSprite("boss2", "../assets/sprites/boss2/boss2_repacked.png", {
     anims: {
         idle: { from: 0, to: 15, loop: true },
         walk: { from: 16, to: 27, loop: true },
-        attack: { from: 32, to: 47, },
+        attack: { from: 32, to: 47, speed: 15 },
     }
 });
 
@@ -224,7 +224,7 @@ k.loadSprite("boss3-attack", "../assets/sprites/boss3/boss3_attack.png", {
     sliceX: 5,
     sliceY: 3,
     anims: {
-        attack: { from: 0, to: 14, },
+        attack: { from: 0, to: 14, speed: 15 },
     }
 });
 k.loadSprite("boss3-hit", "../assets/sprites/boss3/boss3_hit.png", {
@@ -276,6 +276,43 @@ k.loadSprite("boss6-death", "../assets/sprites/boss6/boss6.png", {
     sliceY: 5,
     anims: {
         death: { from: 13, to: 25, },
+    }
+});
+
+//Boss 7
+k.loadSprite("boss7-idle", "../assets/sprites/boss7/boss7_repacked.png", {
+    sliceX: 10,
+    sliceY: 8,
+    anims: {
+        idle: { from: 0, to: 5, loop: true },
+    }
+});
+k.loadSprite("boss7-walk", "../assets/sprites/boss7/boss7_repacked.png", {
+    sliceX: 10,
+    sliceY: 8,
+    anims: {
+        walk: { from: 16, to: 25, loop: true },
+    }
+});
+k.loadSprite("boss7-attack", "../assets/sprites/boss7/boss7_repacked.png", {
+    sliceX: 10,
+    sliceY: 8,
+    anims: {
+        attack: { from: 32, to: 45, speed: 15 },
+    }
+});
+k.loadSprite("boss7-hit", "../assets/sprites/boss7/boss7_repacked.png", {
+    sliceX: 10,
+    sliceY: 8,
+    anims: {
+        hit: { from: 48, to: 54, },
+    }
+});
+k.loadSprite("boss7-death", "../assets/sprites/boss7/boss7_repacked.png", {
+    sliceX: 10,
+    sliceY: 8,
+    anims: {
+        death: { from: 64, to: 79, },
     }
 });
 
@@ -361,6 +398,7 @@ k.loadSprite("level5", "../maps/level5.png")
 k.loadSprite("level6", "../maps/level6.png")
 k.loadSprite("level7", "../maps/level7.png")
 k.loadSprite("level8", "../maps/level7.png")
+k.loadSprite("level9", "../maps/level9.png")
 //UI
 k.loadSprite("left-arrow", "../assets/ui/left_arrow.png");
 k.loadSprite("right-arrow", "../assets/ui/right_arrow.png");

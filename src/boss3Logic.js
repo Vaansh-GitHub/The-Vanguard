@@ -66,7 +66,7 @@ export function makeBoss(k, player) {
                     this.collisionIgnore = ["player"];
                     this.usePreserveSprite("boss3-attack");
                     this.play("attack");
-                    k.wait(0.8, () => {
+                    k.wait(0.7, () => {
                         this.enterState("attacking");
                     })
                 });
@@ -91,7 +91,7 @@ export function makeBoss(k, player) {
                             })
                         }
                     })
-                    k.wait(1, () => {
+                    k.wait(0.5, () => {
                         this.enterState("stop-attacking");
                     })
                 });
@@ -119,7 +119,7 @@ export function makeBoss(k, player) {
                         await this.play("death");
                         k.wait(2, () => {
                             this.destroy()
-                            k.go("level8")
+                            k.go("message")
                             stopMusic(k, k.bgMusic);
                             k.bgMusic = k.play("victory");
                         })

@@ -63,7 +63,7 @@ export function makeBoss(k, player) {
 
                     this.collisionIgnore = ["player"];
                     this.play("attack");
-                    k.wait(0.8, () => {
+                    k.wait(0.5, () => {
                         this.enterState("attacking");
                     })
                 });
@@ -113,7 +113,7 @@ export function makeBoss(k, player) {
                         this.unuse("body")
                         k.wait(2, () => {
                             this.destroy()
-                            k.go("level6")
+                            k.go("level8");
                             stopMusic(k, k.bgMusic);
                             k.bgMusic = k.play("backgroundSound");
                         })
