@@ -71,5 +71,6 @@ export function level1(k, level1Data) {
     // setGameControllers(k, map, player, level1Data);
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
+    stopMusic(k, k.bgMusic)
     k.bgMusic = k.play("backgroundSound", { loop: true });
 }

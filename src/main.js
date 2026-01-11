@@ -55,6 +55,7 @@ k.scene("intro", () => {
         makeNotificationBox(k, "Recommended to play over PC as the Game is not Optimised to  play over Handhelds\n\n Press Enter  to Continue", 900, 400)
     )
     k.onKeyPress("enter", () => {
+
         k.go("instructions") //To start the default scene
     })
 })
@@ -67,6 +68,7 @@ k.scene("instructions", () => { // Scene Method to define scene in kaboom js
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js
+
     k.add(
         makeNotificationBox(k, "Congrats You Won !! Click Enter to Start again", 900, 400)
     )

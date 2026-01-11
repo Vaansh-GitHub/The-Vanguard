@@ -60,5 +60,6 @@ export function level7(k, level7Data) {
     setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
+    stopMusic(k, k.bgMusic)
     k.bgMusic = k.play("bossFightSound", { loop: true });
 }
