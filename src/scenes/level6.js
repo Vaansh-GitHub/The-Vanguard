@@ -1,6 +1,6 @@
 import { makePlayer } from "../player2Logic.js";
 import { setColliders, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
-import { stopMusic } from "./common.js";
+
 export function level6(k, level6Data) {
     k.camScale(1);
     k.camPos(400, 290);
@@ -56,6 +56,5 @@ export function level6(k, level6Data) {
     setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
-    stopMusic(k, k.bgMusic)
     k.bgMusic = k.play("backgroundSound", { loop: true });
 }

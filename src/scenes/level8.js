@@ -1,7 +1,6 @@
 import { makePlayer } from "../player2Logic.js";
 import { makeBoss } from "../boss6Logic.js"
 import { setColliders, setCameraZones, setCameraControls, setEntryAndExitPoints } from "./commonScriptForLevels.js"
-import { stopMusic } from "./common.js";
 export function level8(k, level8Data) {
     k.camScale(1);
     k.camPos(400, 290);
@@ -61,6 +60,5 @@ export function level8(k, level8Data) {
     setEntryAndExitPoints(k, map, exits)
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
-    stopMusic(k, k.bgMusic)
     k.bgMusic = k.play("bossFightSound", { loop: true });
 }

@@ -1,7 +1,7 @@
 import { makePlayer } from "../playerLogic.js";
 import { makeSkeleton } from "../skeletonLogic.js"
 import { setColliders, setCameraZones, setCameraControls, setEntryAndExitPoints, setGameControllers } from "./commonScriptForLevels.js"
-import { stopMusic } from "./common.js";
+
 export function level1(k, level1Data) {
     // make() method creates a game obj but does not adds a scene while add method can create as well as add the obj to the scene
     // I can also add a make() method here maybe (Think after developing game)
@@ -72,6 +72,5 @@ export function level1(k, level1Data) {
     // setGameControllers(k, map, player, level1Data);
 
     // store the returned sound instance so we can stop it later (e.g. on respawn/scene switch)
-    stopMusic(k, k.bgMusic)
     k.bgMusic = k.play("backgroundSound", { loop: true });
 }
