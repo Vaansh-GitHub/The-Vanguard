@@ -33,3 +33,5 @@
 <p><a href="https://the-vanguard.vercel.app/">Click Here !</a> To visit the Game 🕹️.</p>
 <p></p>
 <p>Good Luck for your ventures! 🍀</p>
+
+<p>Do Visit My Article about Kaboom.js at GFG Connect to know more ! <a href="https://www.geeksforgeeks.org/connect/post/68566/kaboom-js-a-game-development-library-for-javascript/">Click Here !</a></p>
