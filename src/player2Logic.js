@@ -53,8 +53,8 @@ export function makePlayer(k, levelData) {
                             this.isAttacking = true;
                             this.usePreserveSprite("player2-attack1")
                             const attackHitBox = this.add([
-                                k.pos(this.flipX ? -100 : 0, 2),
-                                k.area({ shape: new k.Rect(k.vec2(0, -30), 130, 60) }),
+                                k.pos(this.flipX ? -130 : 0, 2),
+                                k.area({ shape: new k.Rect(k.vec2(0, -30), 120, 60) }),
                                 "attack-hitbox",
                             ])
                             await this.play("attack");
