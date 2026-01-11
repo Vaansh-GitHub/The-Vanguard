@@ -8,7 +8,7 @@
     You are the Vanguard 🛡️, the last hope of Ashenwood.
 </p>
 <p>
-    Embark on a perilous journey across 7 distinct realms 🗺️. Battle through hordes of enemies, solve ancient puzzles 🧩, and confront the three dread Lords 👑 who guard the source of the corruption.
+    Embark on a perilous journey across 8 distinct realms 🗺️. Battle through hordes of enemies, solve ancient puzzles 🧩, and confront the three dread Lords 👑 who guard the source of the corruption.
 </p>
 <p>
     With bravery and skill, can you purge the evil and restore light ✨ to the world?
@@ -17,9 +17,9 @@
 
 ## How to Play 🎮
 <p>Master these controls to save Ashenwood:</p>
-<p><strong>A</strong> : Move Left ⬅️</p>
-<p><strong>D</strong> : Move Right ➡️</p>
-<p><strong>W</strong> : Jump / Double Jump ⬆️</p>
+<p><strong>A or Right Arrow</strong> : Move Left ⬅️</p>
+<p><strong>D or Left Arrow</strong> : Move Right ➡️</p>
+<p><strong>W or Up Arrow</strong> : Jump / Double Jump ⬆️</p>
 <p><strong>Space</strong> : Attack ⚔️</p>
 
 ## Credits 🎬
@@ -27,7 +27,7 @@
 <p>itch.io to provide the game assets 🎨</p>
 <p>Vercel for hosting the game, and ☁️</p>
 <p>My Fellow team members for their support and encouragement 🤝</p>
-<p></p>
+<p>Musics are taken from Google thanks to all!</p>
 
 ## Links 🔗
 <p><a href="https://the-vanguard.vercel.app/">Click Here !</a> To visit the Game 🕹️.</p>
