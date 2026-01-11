@@ -114,6 +114,9 @@ export function makePlayer(k, levelData) {
                         this.respawn(levelData.name)
                     }
                 })
+                this.onCollide("dump", () => {
+                    this.respawn("level4")
+                })
                 this.onCollide("creature-hitbox", () => {
                     this.hurt(1);
                     this.updateHealthBar()
@@ -204,7 +207,10 @@ export function makePlayer(k, levelData) {
                     stopMusic(k, k.bgMusic)
                     k.go("level7");
                 })
-
+                this.onCollide("door_level4", () => {
+                    stopMusic(k, k.bgMusic)
+                    k.go("level5");
+                })
             },
             setPassThrough: function () {
                 this.onBeforePhysicsResolve((collision) => {

@@ -1,12 +1,13 @@
 import kaboom from "../lib/kaboom.mjs"
 
 export const scale = 2;
+const canvas = document.querySelector("#mycanvas");
 export const k = kaboom({
-    canvas: document.querySelector("#mycanvas"),
+    canvas,
     width: 320 * scale,
     height: 160 * scale,
     scale,
-    //letterbox:true,//to maintain the aspect ratio of the canvas
+    letterbox: true,//to maintain the aspect ratio of the canvas
     global: false,
 });
 
@@ -73,7 +74,7 @@ k.loadSprite("skeleton-attack", "../assets/sprites/skeleton/Attack.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, speed: 15 },
+        attack: { from: 0, to: 7, speed: 20 },
     }
 });
 k.loadSprite("skeleton-walk", "../assets/sprites/skeleton/Walk.png", {
@@ -241,6 +242,43 @@ k.loadSprite("boss3-death", "../assets/sprites/boss3/boss3_death.png", {
     }
 });
 
+//Boss 6
+k.loadSprite("boss6-idle", "../assets/sprites/boss6/boss6.png", {
+    sliceX: 13,
+    sliceY: 5,
+    anims: {
+        idle: { from: 39, to: 42, loop: true },
+    }
+});
+k.loadSprite("boss6-walk", "../assets/sprites/boss6/boss6.png", {
+    sliceX: 13,
+    sliceY: 5,
+    anims: {
+        walk: { from: 26, to: 37, loop: true },
+    }
+});
+k.loadSprite("boss6-attack", "../assets/sprites/boss6/boss6.png", {
+    sliceX: 13,
+    sliceY: 5,
+    anims: {
+        attack: { from: 0, to: 12, },
+    }
+});
+k.loadSprite("boss6-hit", "../assets/sprites/boss6/boss6.png", {
+    sliceX: 13,
+    sliceY: 5,
+    anims: {
+        hit: { from: 52, to: 54, },
+    }
+});
+k.loadSprite("boss6-death", "../assets/sprites/boss6/boss6.png", {
+    sliceX: 13,
+    sliceY: 5,
+    anims: {
+        death: { from: 13, to: 25, },
+    }
+});
+
 //Goblin
 k.loadSprite("goblin-idle", "../assets/sprites/goblin/Idle.png", {
     sliceX: 4,
@@ -260,7 +298,7 @@ k.loadSprite("goblin-attack", "../assets/sprites/goblin/Attack.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, },
+        attack: { from: 0, to: 7, speed: 20 },
     }
 });
 k.loadSprite("goblin-death", "../assets/sprites/goblin/Death.png", {
@@ -297,7 +335,7 @@ k.loadSprite("mushroom-attack", "../assets/sprites/mushroom/Attack.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, },
+        attack: { from: 0, to: 7, speed: 20 },
     }
 });
 k.loadSprite("mushroom-death", "../assets/sprites/mushroom/Death.png", {
@@ -322,6 +360,12 @@ k.loadSprite("level4", "../maps/level4.png")
 k.loadSprite("level5", "../maps/level5.png")
 k.loadSprite("level6", "../maps/level6.png")
 k.loadSprite("level7", "../maps/level7.png")
+//UI
+k.loadSprite("left-arrow", "../assets/ui/left_arrow.png");
+k.loadSprite("right-arrow", "../assets/ui/right_arrow.png");
+k.loadSprite("up-arrow", "../assets/ui/up_arrow.png");
+k.loadSprite("button-a", "../assets/ui/button_a.png");
+
 k.loadSound("backgroundSound", "../assets/sounds/Ballad of Ashenwood.mp3")
 k.loadSound("errieMusic", "../assets/sounds/vgm-atmospheric-air.mp3")
 k.loadSound("victory", "../assets/sounds/victory.mp3")

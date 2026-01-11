@@ -36,6 +36,7 @@ export function level6(k, level6Data) {
     //Setting the colliders
     setColliders(k, map, colliders)
     //Setting the player
+    //Setting the player
     const player = map.add(makePlayer(k, level6Data));
 
     setCameraControls(k, map, player, level6Data);

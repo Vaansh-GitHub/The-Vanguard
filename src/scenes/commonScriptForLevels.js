@@ -19,16 +19,18 @@ export function setColliders(k, map, colliders) {
             ])
             continue;
         }
-        else if (collider.name === "dump") {
+        else if (collider.type === "dump") {
             map.add([
                 k.pos(collider.x, collider.y),
                 k.area({
                     shape: new k.Rect(k.vec2(0, 0), collider.width, collider.height),
                     collisionIgnore: ["collider"],
                 }),
+                "dump",
                 k.body({ isStatic: true }),
-                collider.type
+                collider.type,
             ])
+            continue;
         }
         else {
             map.add([
@@ -124,5 +126,60 @@ export function setCameraControls(k, map, player, levelData) {
             posY = levelData.height * levelData.tileheight - k.height() / 2
         }
         k.camPos(posX, posY)
+    })
+}
+export function setGameControllers(k, map, player, levelData) {
+    const leftArrow = k.add([
+        k.pos(k.width() / 8, k.height() - 50),
+        k.area({
+            shape: new k.Rect(k.vec2(0, 0), 50, 50),
+            collisionIgnore: ["collider"],
+        }),
+        k.body({ isStatic: true }),
+        k.sprite("left-arrow"),
+        "left-arrow"
+    ])
+    const rightArrow = k.add([
+        k.pos(k.width() / 4 + k.width() / 8, k.height() - 50),
+        k.area({
+            shape: new k.Rect(k.vec2(0, 0), 50, 50),
+            collisionIgnore: ["collider"],
+        }),
+        k.body({ isStatic: true }),
+        k.sprite("right-arrow"),
+        "right-arrow"
+    ])
+    const upArrow = k.add([
+        k.pos(k.width() / 2 + k.width() / 8, k.height() - 50),
+        k.area({
+            shape: new k.Rect(k.vec2(0, 0), 50, 50),
+            collisionIgnore: ["collider"],
+        }),
+        k.body({ isStatic: true }),
+        k.sprite("up-arrow"),
+        "up-arrow"
+    ])
+    const attackArrow = k.add([
+        k.pos(k.width() / 2 + k.width() / 4 + k.width() / 8, k.height() - 50),
+        k.area({
+            shape: new k.Rect(k.vec2(0, 0), 50, 50),
+            collisionIgnore: ["collider"],
+        }),
+        k.body({ isStatic: true }),
+        k.sprite("button-a"),
+        "button-a"
+    ])
+
+    leftArrow.onMousePress(() => {
+        player.moveLeft();
+    })
+    rightArrow.onMousePress(() => {
+        player.moveRight();
+    })
+    upArrow.onMousePress(() => {
+        player.jump();
+    })
+    attackArrow.onMousePress(() => {
+        player.attack();
     })
 }

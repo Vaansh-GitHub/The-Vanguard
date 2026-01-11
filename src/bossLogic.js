@@ -100,7 +100,7 @@ export function makeBoss(k, player) {
                             this.destroy()
                             k.go("level3")
                             stopMusic(k, k.bgMusic);
-                            k.bgMusic = k.play("victory");
+                            k.bgMusic = k.play("backgroundSound", { loop: true });
                         })
                     }
                 })

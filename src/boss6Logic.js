@@ -2,16 +2,16 @@ import { blink, stopMusic, healthTracker, changeText } from "./common.js";
 
 export function makeBoss(k, player) {
     return k.make([
-        k.scale(0.8),
         k.pos(),
-        k.sprite("boss3-idle"),
+        k.sprite("boss6-idle"),
         k.area({
             shape: new k.Rect(k.vec2(0, 50), 50, 60),
             collisionIgnore: [],
         }),
+        k.scale(1.2),
         k.body({}),
         k.anchor("center"),
-        k.health(20),
+        k.health(15),
         k.state("idle", ["idle", "follow", "attack", "stop-attacking", "attacking"]),
         "boss",
         k.opacity(1),
@@ -37,7 +37,7 @@ export function makeBoss(k, player) {
                 this.onStateEnter("idle", () => {
                     this.collisionIgnore = ["player"];
                     if (this.hp() != 0) {
-                        this.usePreserveSprite("boss3-idle");
+                        this.usePreserveSprite("boss6-idle");
                         this.play("idle");
                         k.wait(0.3, () => {//This delay is to prevent the boss from attacking the player
                             this.enterState("follow");
@@ -46,7 +46,7 @@ export function makeBoss(k, player) {
                 });
                 this.onStateEnter("follow", () => {
                     this.collisionIgnore = ["player"];
-                    this.usePreserveSprite("boss3-walk");
+                    this.usePreserveSprite("boss6-walk");
                     this.play("walk");
                 });
 
@@ -64,7 +64,7 @@ export function makeBoss(k, player) {
                     this._isAttacking = true;
 
                     this.collisionIgnore = ["player"];
-                    this.usePreserveSprite("boss3-attack");
+                    this.usePreserveSprite("boss6-attack");
                     this.play("attack");
                     k.wait(0.8, () => {
                         this.enterState("attacking");
@@ -110,12 +110,12 @@ export function makeBoss(k, player) {
                     console.log("Boss hp", this.hp());
                 })
                 this.on("hurt", async () => {
-                    this.usePreserveSprite("boss3-hit");
+                    this.usePreserveSprite("boss6-hit");
                     this.play("hit");
                     if (this.hp() === 0) {
                         await player.disableControls();
                         this.unuse("body")
-                        this.use(k.sprite("boss3-death"))
+                        this.use(k.sprite("boss6-death"))
                         await this.play("death");
                         k.wait(2, () => {
                             this.destroy()

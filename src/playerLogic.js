@@ -1,5 +1,5 @@
 import { stopMusic, healthTracker, changeText } from "./common.js";
-export function makePlayer(k) {
+export function makePlayer(k, levelData) {
     return k.make([
         k.pos(),
         k.sprite("player-idle"),
@@ -26,6 +26,56 @@ export function makePlayer(k) {
                     handler.cancel();
                 }
             },
+            moveUp() {
+                if (!this.isAttacking && this.isGrounded()) {
+                    if (this.curAnim() !== "jump") {
+                        this.usePreserveSprite("player-jump")
+                        this.play("jump");
+                    }
+                    this.doubleJump();
+                }
+            },
+            moveLeft() {
+                if (!this.isAttacking) {
+                    if (this.curAnim() !== "run" && this.isGrounded()) {
+                        this.usePreserveSprite("player-run")
+                        this.play("run");
+                    }
+                    this.flipX = true;
+                    this.move(-this.speed, 0);
+                }
+            },
+            moveRight() {
+                if (!this.isAttacking) {
+                    if (this.curAnim() !== "run" && this.isGrounded()) {
+                        this.usePreserveSprite("player-run")
+                        this.play("run");
+                    }
+                    this.flipX = false;
+                    this.move(this.speed, 0);
+                }
+            },
+            attack() {
+                if (!this.isAttacking && this.isGrounded()) {
+                    if (this.curAnim() !== "attack") {
+                        this.usePreserveSprite("player-attack")
+                        this.play("attack");
+                    }
+                    this.isAttacking = true;
+                    const attackHitBox = this.add([
+                        k.pos(this.flipX ? -90 : 0, 2),
+                        k.area({ shape: new k.Rect(k.vec2(0, -30), 90, 45) }),
+                        "attack-hitbox",
+                    ])
+                    this.play("attack");
+                    k.wait(0.4, () => {
+                        attackHitBox.destroy();
+                        this.isAttacking = false;
+                        this.usePreserveSprite("player-idle")
+                        this.play("idle");
+                    });
+                }
+            },
             usePreserveSprite: function (name) {
                 const prevFlip = this.flipX;
                 this.use(k.sprite(name));
@@ -41,51 +91,23 @@ export function makePlayer(k) {
 
                 this.controlHandlers.push(
                     k.onKeyPress((key) => {
-                        if (key === "w" && !this.isAttacking && this.isGrounded()) {
-                            if (this.curAnim() !== "jump") {
-                                this.usePreserveSprite("player-jump")
-                                this.play("jump");
-                            }
-                            this.doubleJump();
+                        if (key === "w") {
+                            this.moveUp();
                             return;
                         }
-                        if (key === "space" && this.isGrounded() && !this.isAttacking) {
-                            this.isAttacking = true;
-                            this.usePreserveSprite("player-attack")
-                            const attackHitBox = this.add([
-                                k.pos(this.flipX ? -90 : 0, 2),
-                                k.area({ shape: new k.Rect(k.vec2(0, -30), 90, 45) }),
-                                "attack-hitbox",
-                            ])
-                            this.play("attack");
-                            k.wait(0.4, () => {
-                                attackHitBox.destroy();
-                                this.isAttacking = false;
-                                this.usePreserveSprite("player-idle")
-                                this.play("idle");
-                            });
+                        if (key === "space") {
+                            this.attack();
+                            return;
                         }
                     }))
                 this.controlHandlers.push(
                     k.onKeyDown((key) => {
-                        if (key === "a" && !this.isAttacking) {
-                            if (this.curAnim() !== "run" && this.isGrounded()) {
-                                this.usePreserveSprite("player-run")
-                                this.play("run");
-                            }
-                            this.flipX = true;
-                            //this.lastFlipX = true;
-                            this.move(-this.speed, 0);
+                        if (key === "a") {
+                            this.moveLeft();
                             return;
                         }
-                        if (key === "d" && !this.isAttacking) {
-                            if (this.curAnim() !== "run" && this.isGrounded()) {
-                                this.usePreserveSprite("player-run")
-                                this.play("run");
-                            }
-                            this.flipX = false;
-                            //this.lastFlipX = false;
-                            this.move(this.speed, 0);
+                        if (key === "d") {
+                            this.moveRight();
                             return;
                         }
                     }))
@@ -96,8 +118,6 @@ export function makePlayer(k) {
                             this.curAnim() !== "jump" &&
                             this.curAnim() !== "fall" &&
                             this.isGrounded()) {
-
-                            //this.flipX = this.lastFlipX;
                             this.usePreserveSprite("player-idle")
                             this.play("idle");
                         }
@@ -105,6 +125,11 @@ export function makePlayer(k) {
                 )
             },
             setEvents: function () {
+                this.onUpdate(() => {
+                    if (this.pos.x < 0 + 1 || this.pos.x > levelData.width * levelData.tilewidth + 1 || this.pos.y < 0 + 1 || this.pos.y > levelData.height * levelData.tileheight + 1) {
+                        this.respawn(levelData.name)
+                    }
+                })
                 this.onCollide("creature-hitbox", () => {
                     this.hurt(1);
                     this.updateHealthBar()

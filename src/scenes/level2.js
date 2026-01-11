@@ -44,7 +44,7 @@ export function level2(k, level2Data) {
     // setCameraZones(k, map, cameras)
 
     //Adding the player logic 
-    const player = map.add(makePlayer(k));
+    const player = map.add(makePlayer(k, level2Data));
     //Creating the boss
     const boss = map.add(makeBoss(k, player))
 
