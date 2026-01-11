@@ -70,7 +70,7 @@ k.scene("instructions", () => { // Scene Method to define scene in kaboom js
         makeNotificationBox(k, "'W' or 'Up Arrow' - to jump \n'A' or 'Left Arrow' - to move left \n'D' or 'Right Arrow' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level1") //To start the default scene
+        k.go("message") //To start the default scene
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js
@@ -85,7 +85,7 @@ k.scene("final", () => { // Scene Method to define scene in kaboom js
 k.scene("message", () => { // Scene Method to define scene in kaboom js
 
     k.add(
-        makeNotificationBox(k, "Seeing the rising power the deadly hallows are now coming to life to suppress the power themselves watch that!!!....", 900, 400)
+        makeNotificationBox(k, "Seeing the rising power the deadly hallows are now coming to life to \nsuppress the power themselves watch that!!!....", 900, 400)
     )
     k.onKeyPress("enter", () => {
         stopMusic(k, k.bgMusic);
