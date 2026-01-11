@@ -7,6 +7,7 @@ import { level4 } from "./scenes/level4.js"
 import { level5 } from "./scenes/level5.js"
 import { level6 } from "./scenes/level6.js"
 import { level7 } from "./scenes/level7.js"
+import { level8 } from "./scenes/level8.js"
 async function main() {
     const level1Data = await (await fetch("../maps/level1.json")).json()
     const level2Data = await (await fetch("../maps/level2.json")).json()
@@ -43,6 +44,10 @@ async function main() {
         level7Data.name = "level7"
         level7(k, level7Data)
     })
+    k.scene("level8", () => {
+        level7Data.name = "level8"
+        level8(k, level7Data)
+    })
 }
 main()
 k.scene("intro", () => {
@@ -58,7 +63,7 @@ k.scene("instructions", () => { // Scene Method to define scene in kaboom js
         makeNotificationBox(k, "'W' - to jump \n'A' - to move left \n'D' - to move right \n'Space' - to attack \nHit Enter  to  start", 900, 400)
     )
     k.onKeyPress("enter", () => {
-        k.go("level1") //To start the default scene
+        k.go("level8") //To start the default scene
     })
 })
 k.scene("final", () => { // Scene Method to define scene in kaboom js

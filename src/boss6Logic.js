@@ -5,10 +5,10 @@ export function makeBoss(k, player) {
         k.pos(),
         k.sprite("boss6-idle"),
         k.area({
-            shape: new k.Rect(k.vec2(0, 50), 50, 60),
+            shape: new k.Rect(k.vec2(0, -5), 30, 40),
             collisionIgnore: [],
         }),
-        k.scale(1.2),
+        k.scale(1.5),
         k.body({}),
         k.anchor("center"),
         k.health(15),
@@ -51,10 +51,10 @@ export function makeBoss(k, player) {
                 });
 
                 this.onStateUpdate("follow", () => {
-                    this.flipX = player.pos.x >= this.pos.x;
-                    this.moveTo(k.vec2(player.pos.x + 60, this.pos.y), 100);//Here 100 is set as the speed of walking
+                    this.flipX = player.pos.x <= this.pos.x;
+                    this.moveTo(k.vec2(player.pos.x + 50, this.pos.y), 100);//Here 100 is set as the speed of walking
 
-                    if (this.pos.dist(player.pos) < 100) {
+                    if (this.pos.dist(player.pos) < 60) {
                         this.enterState("attack");
                     }
                 });
@@ -66,7 +66,7 @@ export function makeBoss(k, player) {
                     this.collisionIgnore = ["player"];
                     this.usePreserveSprite("boss6-attack");
                     this.play("attack");
-                    k.wait(0.8, () => {
+                    k.wait(0.4, () => {
                         this.enterState("attacking");
                     })
                 });
@@ -74,7 +74,7 @@ export function makeBoss(k, player) {
                     this.collisionIgnore = ["player"];
                     const bossHitBox = this.add([
                         k.pos(0, 50),
-                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? 0 : -130, -30), 130, 60) }),
+                        k.area({ shape: new k.Rect(k.vec2(this.flipX ? -40 : 0, -70), 40, 40) }),
                         "boss-hitbox",
                     ]);
 

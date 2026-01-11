@@ -183,14 +183,14 @@ k.loadSprite("player2-attack1", "../assets/sprites/hero2/Attack1.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, speed: 20 },
+        attack: { from: 0, to: 7, speed: 25 },
     }
 });
 k.loadSprite("player2-attack2", "../assets/sprites/hero2/Attack2.png", {
     sliceX: 8,
     sliceY: 1,
     anims: {
-        attack: { from: 0, to: 7, speed: 20 },
+        attack: { from: 0, to: 7, speed: 25 },
     }
 });
 
@@ -261,7 +261,7 @@ k.loadSprite("boss6-attack", "../assets/sprites/boss6/boss6.png", {
     sliceX: 13,
     sliceY: 5,
     anims: {
-        attack: { from: 0, to: 12, },
+        attack: { from: 0, to: 12, speed: 15 },
     }
 });
 k.loadSprite("boss6-hit", "../assets/sprites/boss6/boss6.png", {
@@ -360,6 +360,7 @@ k.loadSprite("level4", "../maps/level4.png")
 k.loadSprite("level5", "../maps/level5.png")
 k.loadSprite("level6", "../maps/level6.png")
 k.loadSprite("level7", "../maps/level7.png")
+k.loadSprite("level8", "../maps/level7.png")
 //UI
 k.loadSprite("left-arrow", "../assets/ui/left_arrow.png");
 k.loadSprite("right-arrow", "../assets/ui/right_arrow.png");
