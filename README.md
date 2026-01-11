@@ -8,7 +8,7 @@
     You are the Vanguard 🛡️, the last hope of Ashenwood.
 </p>
 <p>
-    Embark on a perilous journey across 8 distinct realms 🗺️. Battle through hordes of enemies, solve ancient puzzles 🧩, and confront the three dread Lords 👑 who guard the source of the corruption.
+    Embark on a perilous journey across distinct realms 🗺️. Battle through hordes of enemies, solve ancient puzzles 🧩, and confront the dread Lords 👑 who guard the source of the corruption.
 </p>
 <p>
     With bravery and skill, can you purge the evil and restore light ✨ to the world?
